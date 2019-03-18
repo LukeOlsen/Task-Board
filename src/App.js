@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Data from './Data';
 import ToDo from './ToDo';
 import Completed from './Completed';
 import Working from './Working';
