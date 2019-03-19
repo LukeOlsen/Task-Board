@@ -1,14 +1,23 @@
 import React from 'react';
-import Droppable from 'react-beautiful-dnd';
+import {Draggable} from 'react-beautiful-dnd';
 
-const ToDo = () => {
+const ToDo = (props) => {
 
     return (
-        <Droppable>
-            <div>
-                
-            </div>
-        </Droppable>
+        <Draggable
+            draggableId={this.props.todo.id}
+            index={this.props.index}
+        >
+            {provided =>(
+                <div className="Container"
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  innerRef={provided.innerRef}
+                >
+                    {this.props.todo.title}
+                </div>
+            )}
+        </Draggable>
     )
 }
 

@@ -7,13 +7,21 @@ import {DragDropContext} from 'react-beautiful-dnd';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = Data;
+  }
+
   render() {
     return (
-      <div className="App">
-        <ToDo />
-        <Working />
-        <Completed />
-      </div>
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        {this.state.columnsort.map(columnId => {
+          const column = this.state.columns[columnId];
+          const todos = column.todo.map(todoId => this.state.todo[todoID]);
+          return <Column key={column.id} column={column} todos={todos} />;
+        })}
+      </DragDropContext>
     );
   }
 }

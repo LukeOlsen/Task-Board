@@ -1,10 +1,19 @@
 const Data = {
-    todo: [],
+    todo: [
+        {
+            id: '1',
+            title: 'test title',
+            description: 'test description',
+            dueDate: '',
+            complete: false,
+            edit: false
+        }
+    ],
     columns: {
         'col-1-to-do': {
             id: 'col-1',
             title: 'To Do',
-            todoId: []
+            todoId: ['1']
         },
         'col-2-working': {
             id: 'col-2',
