@@ -13,6 +13,36 @@ class App extends Component {
     this.state = Data;
   }
 
+  onDragEnd = result => {
+    const {destination, source, draggableId} = result;
+    if (!destination) {
+      return
+    } 
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    const column = this.state.columns[source.droppableId];
+    const newToDoIds = Array.from(column.todoIds);
+    newToDoIds.splice(source.index, 1);
+    newToDoIds.splice(destination.index, 0, draggableId);
+    const newColumn = {
+      ...column,
+      todoIds: newTodoIds,
+    };
+    const newState = {
+      ...this.state,
+      columns: {
+        ...this.state.columns,
+        [newColumn.id]: newColumn,
+      },
+    };
+    this.setState(newState);
+  }
+
+
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
