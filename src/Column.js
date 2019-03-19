@@ -1,23 +1,25 @@
 import React from 'react';
 import {Droppable} from 'react-beautiful-dnd';
-import ToDo from 'ToDo';
+import ToDo from './ToDo';
 
 const Column = (props) => {
-
+    console.log(props)
+    let test = props.column.id
+    console.log(test)
     return (
-        <Droppable droppableId={this.props.column.id}>
-            {(provided) => {
+        <Droppable droppableId={props.column.id}>
+            {(provided, snapshot) => (
                 <div
                     className="to-Do-Container"
-                    innerRef={provided.innerRef}
+                    ref={provided.innerRef}
                     {...provided.droppableProps}
                 >
-                    {this.props.todo.map((todo, index) => (
+                     {props.todos.map((todo, index) => (
                         <ToDo key={todo.id} todo={todo} index={index} />
-                    ))}
+                    ))} 
                     {provided.placeholder}
                 </div>
-            }}
+            )}
         </Droppable>
     )
 }

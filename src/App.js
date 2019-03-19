@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Data from './Data';
-import ToDo from './ToDo';
-import Completed from './Completed';
-import Working from './Working';
+import Column from './Column';
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import './App.css';
 
@@ -25,12 +23,12 @@ class App extends Component {
       return;
     }
     const column = this.state.columns[source.droppableId];
-    const newToDoIds = Array.from(column.todoIds);
+    const newToDoIds = Array.from(column.todoId);
     newToDoIds.splice(source.index, 1);
     newToDoIds.splice(destination.index, 0, draggableId);
     const newColumn = {
       ...column,
-      todoIds: newTodoIds,
+      todoIds: newToDoIds,
     };
     const newState = {
       ...this.state,
@@ -48,7 +46,7 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         {this.state.columnsort.map(columnId => {
           const column = this.state.columns[columnId];
-          const todos = column.todo.map(todoId => this.state.todo[todoID]);
+          const todos = column.todoId.map(todoId => this.state.todo[todoId]);
           return <Column key={column.id} column={column} todos={todos} />;
         })}
       </DragDropContext>

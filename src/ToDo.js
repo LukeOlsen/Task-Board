@@ -5,8 +5,8 @@ const ToDo = (props) => {
 
     return (
         <Draggable
-            draggableId={this.props.todo.id}
-            index={this.props.index}
+            draggableId={props.todo.id}
+            index={props.index}
         >
             {provided =>(
                 <div className="Container"
@@ -14,7 +14,7 @@ const ToDo = (props) => {
                   {...provided.dragHandleProps}
                   innerRef={provided.innerRef}
                 >
-                    {this.props.todo.title}
+                    {props.todo.title}
                 </div>
             )}
         </Draggable>
