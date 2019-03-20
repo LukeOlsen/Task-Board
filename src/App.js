@@ -23,12 +23,16 @@ class App extends Component {
     ) {
       return;
     }
-    const column = this.state.columns[source.droppableId];
-    const newToDoIds = Array.from(column.todoId);
+    const begin = this.state.columns[source.droppableId];
+    console.log(begin);
+    const end = this.state.columns[destination.droppableId];
+    console.log(end)
+    if (begin === end){
+    const newToDoIds = Array.from(begin.todoId);
     newToDoIds.splice(source.index, 1);
     newToDoIds.splice(destination.index, 0, draggableId);
     const newColumn = {
-      ...column,
+      ...begin,
       todoId: newToDoIds,
     };
     const newState = {
@@ -39,6 +43,31 @@ class App extends Component {
       },
     };
     this.setState(newState);
+    return
+    }
+    if (begin !== end ) {
+      const beginToDoIds = Array.from(begin.todoId);
+      beginToDoIds.splice(source.index, 1);
+      const newBegin = {
+        ...begin,
+        todoId: beginToDoIds
+      }
+      const endToDoIds = Array.from(end.todoId);
+      endToDoIds.splice(destination.index, 0, draggableId);
+      const newEnd = {
+        ...end,
+        todoId: endToDoIds
+      }
+      const newState = {
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [newBegin.id]: newBegin,
+          [newEnd.id]: newEnd,
+        }
+      }
+      this.setState(newState)
+    }
   }
 
 
@@ -48,11 +77,11 @@ class App extends Component {
         <h1>Test</h1>
         <div className="mainContainer">
           <DragDropContext onDragEnd={this.onDragEnd}>
-            {this.state.columnsort.map(columnId => {
-              const column = this.state.columns[columnId];
-              const todos = column.todoId.map(todoId => this.state.todo[todoId]);
-              return <Column key={column.id} column={column} todos={todos} />;
-            })}
+              {this.state.columnsort.map(columnId => {
+                const column = this.state.columns[columnId];
+                const todos = column.todoId.map(todoId => this.state.todo[todoId]);
+                return <Column key={column.id} column={column} todos={todos} />;
+              })}
           </DragDropContext>
         </div>
       </div>
