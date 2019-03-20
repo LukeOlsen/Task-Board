@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Data from './Data';
 import Column from './Column';
+import Popup from './PopUp';
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import './App.css';
 
@@ -11,6 +12,7 @@ class App extends Component {
     this.state = Data;
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addToDo = this.addToDo.bind(this);
+    this.togglePop = this.togglePop.bind(this);
   }
 
   onDragEnd = result => {
@@ -74,7 +76,7 @@ class App extends Component {
 
   addToDo = () => {
     console.log(`${this.state.count}`)
-    let r = this.state.count+1
+    let r = this.state.count+1;
     let newState = this.state;
     newState.todo = {
       ...newState.todo,
@@ -82,12 +84,14 @@ class App extends Component {
         id: `${r}`,
         title: 'temp'
       }
-     }
-     console.log(newState)
-    newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`]
-    newState.count = newState.count+1
-    console.log(newState)
-    this.setState(newState)
+     };
+    newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
+    newState.count = newState.count+1;
+    this.setState(newState);
+  }
+
+  togglePop = () => {
+    this.setState({showPop: !this.state.showPop})
   }
 
 
@@ -96,6 +100,7 @@ class App extends Component {
       <div>
         <h1>Test</h1>
         <div className="mainContainer">
+        <div><button onClick={this.togglePop}>showpop</button></div>
         <div><button onClick={this.addToDo}>Create New ToDo</button></div>
           <DragDropContext onDragEnd={this.onDragEnd}>
               {this.state.columnsort.map(columnId => {
@@ -105,6 +110,8 @@ class App extends Component {
               })}
           </DragDropContext>
         </div>
+        {this.state.showPop ?
+        <Popup toggle={this.togglePop} /> : null}
       </div>
     );
   }
