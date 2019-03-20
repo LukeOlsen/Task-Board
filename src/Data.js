@@ -29,12 +29,12 @@ const Data = {
         'col-1': {
             id: 'col-1',
             title: 'To Do',
-            todoId: ['1', '2', '3']
+            todoId: ['1', '2']
         },
         'col-2': {
             id: 'col-2',
             title: 'In Progress',
-            todoId: []
+            todoId: ['3']
         },
         'col-3': {
             id: 'col-3',
@@ -47,7 +47,9 @@ const Data = {
             todoId: []
         }
     },
-    columnsort: ['col-1', 'col-2', 'col-3', 'col-4']
+    columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
+    count: 3,
+    showPop: false
 }
 
 export default Data;
