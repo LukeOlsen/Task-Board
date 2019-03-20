@@ -47,7 +47,8 @@ const Data = {
             todoId: []
         }
     },
-    columnsort: ['col-1', 'col-2', 'col-3', 'col-4']
+    columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
+    count: 3
 }
 
 export default Data;

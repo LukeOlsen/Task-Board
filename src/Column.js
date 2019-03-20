@@ -5,7 +5,7 @@ import ToDo from './ToDo';
 const Column = (props) => {
     return (
         <div className="to-Do-Container">
-        <h1>Title</h1>
+        <h1>{props.column.title}</h1>
         <Droppable droppableId={props.column.id}>
             {(provided, snapshot) => (
                 <div

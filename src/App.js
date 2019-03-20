@@ -9,7 +9,8 @@ class App extends Component {
     super(props)
 
     this.state = Data;
-    this.onDragEnd = this.onDragEnd.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this);
+    this.addToDo = this.addToDo.bind(this);
   }
 
   onDragEnd = result => {
@@ -24,9 +25,7 @@ class App extends Component {
       return;
     }
     const begin = this.state.columns[source.droppableId];
-    console.log(begin);
     const end = this.state.columns[destination.droppableId];
-    console.log(end)
     if (begin === end){
     const newToDoIds = Array.from(begin.todoId);
     newToDoIds.splice(source.index, 1);
@@ -35,6 +34,7 @@ class App extends Component {
       ...begin,
       todoId: newToDoIds,
     };
+    console.log(newColumn)
     const newState = {
       ...this.state,
       columns: {
@@ -52,6 +52,7 @@ class App extends Component {
         ...begin,
         todoId: beginToDoIds
       }
+      console.log(newBegin)
       const endToDoIds = Array.from(end.todoId);
       endToDoIds.splice(destination.index, 0, draggableId);
       const newEnd = {
@@ -66,8 +67,27 @@ class App extends Component {
           [newEnd.id]: newEnd,
         }
       }
+      console.log(newState)
       this.setState(newState)
     }
+  }
+
+  addToDo = () => {
+    console.log(`${this.state.count}`)
+    let r = this.state.count+1
+    let newState = this.state;
+    newState.todo = {
+      ...newState.todo,
+      [r]: {
+        id: `${r}`,
+        title: 'temp'
+      }
+     }
+     console.log(newState)
+    newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`]
+    newState.count = newState.count+1
+    console.log(newState)
+    this.setState(newState)
   }
 
 
@@ -76,6 +96,7 @@ class App extends Component {
       <div>
         <h1>Test</h1>
         <div className="mainContainer">
+        <div><button onClick={this.addToDo}>Create New ToDo</button></div>
           <DragDropContext onDragEnd={this.onDragEnd}>
               {this.state.columnsort.map(columnId => {
                 const column = this.state.columns[columnId];
