@@ -29,7 +29,7 @@ class App extends Component {
     newToDoIds.splice(destination.index, 0, draggableId);
     const newColumn = {
       ...column,
-      todoIds: newToDoIds,
+      todoId: newToDoIds,
     };
     const newState = {
       ...this.state,

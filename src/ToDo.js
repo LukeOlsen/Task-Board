@@ -2,12 +2,10 @@ import React from 'react';
 import {Draggable} from 'react-beautiful-dnd';
 
 const ToDo = (props) => {
-    console.log(props.todo.id)
-    console.log("test")
     return (
         <div>
             <Draggable
-                draggableId={props.todo.title}
+                draggableId={props.todo.id}
                 index={props.index}
             >
                 {provided =>(
