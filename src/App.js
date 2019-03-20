@@ -13,6 +13,9 @@ class App extends Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addToDo = this.addToDo.bind(this);
     this.togglePop = this.togglePop.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   onDragEnd = result => {
@@ -78,15 +81,27 @@ class App extends Component {
     console.log(`${this.state.count}`)
     let r = this.state.count+1;
     let newState = this.state;
+    let tempTitle = this.state.tempTitle;
+    let tempDescription = this.state.tempDescription;
+    let tempDate = this.state.tempDate;
     newState.todo = {
       ...newState.todo,
       [r]: {
         id: `${r}`,
-        title: 'temp'
+        title: tempTitle,
+        description: tempDescription,
+        date: tempDate,
+        complete: false,
+        edit: false
+
       }
      };
     newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
     newState.count = newState.count+1;
+    newState.showPop = false;
+    newState.tempDate = '';
+    newState.tempDescription = '';
+    newState.tempTitle = '';
     this.setState(newState);
   }
 
@@ -94,6 +109,17 @@ class App extends Component {
     this.setState({showPop: !this.state.showPop})
   }
 
+  handleTitleChange = tempTitle => {
+    this.setState({tempTitle});
+  }
+
+  handleDateChange = tempDate => {
+    this.setState({tempDate});
+  }
+
+  handleDescriptionChange = tempDescription => {
+    this.setState({tempDescription})
+  }
 
   render() {
     return (
@@ -111,7 +137,13 @@ class App extends Component {
           </DragDropContext>
         </div>
         {this.state.showPop ?
-        <Popup toggle={this.togglePop} /> : null}
+        <Popup 
+          toggle={this.togglePop} 
+          handleTitleChange={this.handleTitleChange}
+          handleDateChange={this.handleDateChange}
+          handleDescriptionChange={this.handleDescriptionChange}
+          addToDo={this.addToDo}
+        /> : null}
       </div>
     );
   }

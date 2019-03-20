@@ -49,7 +49,10 @@ const Data = {
     },
     columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
     count: 3,
-    showPop: false
+    showPop: false,
+    tempTitle: '',
+    tempDate: '',
+    tempDescription: ''
 }
 
 export default Data;
