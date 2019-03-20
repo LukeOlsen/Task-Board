@@ -9,6 +9,7 @@ class App extends Component {
     super(props)
 
     this.state = Data;
+    this.onDragEnd = this.onDragEnd.bind(this)
   }
 
   onDragEnd = result => {
@@ -43,13 +44,18 @@ class App extends Component {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        {this.state.columnsort.map(columnId => {
-          const column = this.state.columns[columnId];
-          const todos = column.todoId.map(todoId => this.state.todo[todoId]);
-          return <Column key={column.id} column={column} todos={todos} />;
-        })}
-      </DragDropContext>
+      <div>
+        <h1>Test</h1>
+        <div className="mainContainer">
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            {this.state.columnsort.map(columnId => {
+              const column = this.state.columns[columnId];
+              const todos = column.todoId.map(todoId => this.state.todo[todoId]);
+              return <Column key={column.id} column={column} todos={todos} />;
+            })}
+          </DragDropContext>
+        </div>
+      </div>
     );
   }
 }

@@ -7,13 +7,29 @@ const Data = {
             dueDate: '',
             complete: false,
             edit: false
+        },
+        '2': {
+            id: '2',
+            title: 'do more things',
+            description: 'do even more things',
+            dueDate: '',
+            complete: false,
+            edit: false
+        },
+        '3': {
+            id: '3',
+            title: 'finish things',
+            description: 'stop doing things',
+            dueDate: '',
+            complete: false,
+            edit: false
         }
     },
     columns: {
         'col-1': {
             id: 'col-1',
             title: 'To Do',
-            todoId: ['1']
+            todoId: ['1', '2', '3']
         },
         'col-2': {
             id: 'col-2',

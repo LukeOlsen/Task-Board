@@ -3,14 +3,12 @@ import {Droppable} from 'react-beautiful-dnd';
 import ToDo from './ToDo';
 
 const Column = (props) => {
-    console.log(props)
-    let test = props.column.id
-    console.log(test)
     return (
+        <div className="to-Do-Container">
         <Droppable droppableId={props.column.id}>
             {(provided, snapshot) => (
                 <div
-                    className="to-Do-Container"
+                    className="toDo"
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                 >
@@ -21,6 +19,7 @@ const Column = (props) => {
                 </div>
             )}
         </Droppable>
+        </div>
     )
 }
 
