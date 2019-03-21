@@ -2,6 +2,12 @@ import React from 'react';
 import {Draggable} from 'react-beautiful-dnd';
 
 const ToDo = (props) => {
+
+    alert = (e) => {
+        e.preventDefault();
+        console.log(props.todo.id)
+    }
+
     return (
         <div>
             <Draggable
@@ -13,6 +19,7 @@ const ToDo = (props) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
+                    onClick={() => props.editCard(props.todo.id)}
                     >
                         {props.todo.title}
                     </div>

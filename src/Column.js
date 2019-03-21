@@ -14,7 +14,7 @@ const Column = (props) => {
                     {...provided.droppableProps}
                 >
                      {props.todos.map((todo, index) => (
-                        <ToDo key={todo.id} todo={todo} index={index} />
+                        <ToDo key={todo.id} todo={todo} index={index} editCard={props.editCard}/>
                     ))} 
                     {provided.placeholder}
                 </div>

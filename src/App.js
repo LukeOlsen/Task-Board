@@ -16,6 +16,7 @@ class App extends Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.editCard = this.editCard.bind(this);
   }
 
   onDragEnd = result => {
@@ -121,6 +122,17 @@ class App extends Component {
     this.setState({tempDescription})
   }
 
+  editCard = (l) => {
+    console.log("working");
+    let newState = this.state;
+    console.log(newState);
+    console.log(l)
+    newState.tempTitle = this.state.todo[l].title;
+    newState.showPop = true;
+    console.log(newState)
+    this.setState(newState)
+  }
+
   render() {
     return (
       <div>
@@ -132,7 +144,7 @@ class App extends Component {
               {this.state.columnsort.map(columnId => {
                 const column = this.state.columns[columnId];
                 const todos = column.todoId.map(todoId => this.state.todo[todoId]);
-                return <Column key={column.id} column={column} todos={todos} />;
+                return <Column key={column.id} column={column} todos={todos} editCard={this.editCard} />;
               })}
           </DragDropContext>
         </div>
@@ -143,6 +155,7 @@ class App extends Component {
           handleDateChange={this.handleDateChange}
           handleDescriptionChange={this.handleDescriptionChange}
           addToDo={this.addToDo}
+          editCard={this.editCard}
         /> : null}
       </div>
     );
