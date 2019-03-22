@@ -79,31 +79,44 @@ class App extends Component {
   }
 
   addToDo = () => {
-    console.log(`${this.state.count}`)
-    let r = this.state.count+1;
-    let newState = this.state;
-    let tempTitle = this.state.tempTitle;
-    let tempDescription = this.state.tempDescription;
-    let tempDate = this.state.tempDate;
-    newState.todo = {
-      ...newState.todo,
-      [r]: {
-        id: `${r}`,
-        title: tempTitle,
-        description: tempDescription,
-        date: tempDate,
-        complete: false,
-        edit: false
+    if (this.state.edit === false) {
+      console.log(`${this.state.count}`)
+      let r = this.state.count+1;
+      let newState = this.state;
+      let tempTitle = this.state.tempTitle;
+      let tempDescription = this.state.tempDescription;
+      let tempDate = this.state.tempDate;
+      newState.todo = {
+        ...newState.todo,
+        [r]: {
+          id: `${r}`,
+          title: tempTitle,
+          description: tempDescription,
+          date: tempDate,
+          complete: false
 
-      }
-     };
-    newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
-    newState.count = newState.count+1;
-    newState.showPop = false;
-    newState.tempDate = '';
-    newState.tempDescription = '';
-    newState.tempTitle = '';
-    this.setState(newState);
+        }
+      };
+      newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
+      newState.count = newState.count+1;
+      newState.showPop = false;
+      newState.tempDate = '';
+      newState.tempDescription = '';
+      newState.tempTitle = '';
+      this.setState(newState);
+    } else if (this.state.edit === true) {
+      let newState = this.state;
+      newState.todo[newState.currentEditId].title = newState.tempTitle;
+      newState.todo[newState.currentEditId].description = newState.tempDescription;
+      newState.todo[newState.currentEditId].date = newState.tempDate;
+      newState.tempDate = '';
+      newState.tempDescription = '';
+      newState.tempTitle = '';
+      newState.edit = false;
+      newState.currentEditId = '';
+      newState.showPop = false;
+      this.setState(newState);
+    }
   }
 
   togglePop = () => {
@@ -127,10 +140,14 @@ class App extends Component {
     let newState = this.state;
     console.log(newState);
     console.log(l)
+    newState.edit = true;
     newState.tempTitle = this.state.todo[l].title;
+    newState.tempDescription = this.state.todo[l].description;
+    newState.tempDate = this.state.todo[l].date;
+    newState.currentEditId = l;
     newState.showPop = true;
-    console.log(newState)
-    this.setState(newState)
+    console.log(newState);
+    this.setState(newState);
   }
 
   render() {
@@ -139,7 +156,6 @@ class App extends Component {
         <h1>Test</h1>
         <div className="mainContainer">
         <div><button onClick={this.togglePop}>showpop</button></div>
-        <div><button onClick={this.addToDo}>Create New ToDo</button></div>
           <DragDropContext onDragEnd={this.onDragEnd}>
               {this.state.columnsort.map(columnId => {
                 const column = this.state.columns[columnId];
@@ -154,6 +170,9 @@ class App extends Component {
           handleTitleChange={this.handleTitleChange}
           handleDateChange={this.handleDateChange}
           handleDescriptionChange={this.handleDescriptionChange}
+          tempTitle={this.state.tempTitle}
+          tempDate={this.state.tempDate}
+          tempDescription={this.state.tempDescription}
           addToDo={this.addToDo}
           editCard={this.editCard}
         /> : null}

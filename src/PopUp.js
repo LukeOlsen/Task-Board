@@ -7,14 +7,14 @@ const Popup = (props) => {
                 <input 
                     type="text"
                     className="tempTitle"
-                    placeholder={props.tempTitle}
+                    //placeholder={props.tempTitle}
                     value={props.tempTitle}
                     onChange={event => props.handleTitleChange(event.target.value)}
                 />
                 <input
                     type="text"
                     className="tempDescription"
-                    placeholder={props.tempDescription}
+                    //placeholder={props.tempDescription}
                     value={props.tempDescription}
                     onChange={event => props.handleDescriptionChange(event.target.value)}
                 />

@@ -5,24 +5,21 @@ const Data = {
             title: 'test title',
             description: 'test description',
             dueDate: '',
-            complete: false,
-            edit: false
+            complete: false
         },
         '2': {
             id: '2',
             title: 'do more things',
             description: 'do even more things',
             dueDate: '',
-            complete: false,
-            edit: false
+            complete: false
         },
         '3': {
             id: '3',
             title: 'finish things',
             description: 'stop doing things',
             dueDate: '',
-            complete: false,
-            edit: false
+            complete: false
         }
     },
     columns: {
@@ -50,6 +47,8 @@ const Data = {
     columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
     count: 3,
     showPop: false,
+    edit: false,
+    currentEditId: '',
     tempTitle: '',
     tempDate: '',
     tempDescription: ''
