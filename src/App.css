@@ -47,6 +47,7 @@ html, body {
 }
 
 .toDoCard  {
+    height: 35px;
     width: 100%;
     margin-top: 5px;
     border: 2px solid red;
@@ -55,4 +56,16 @@ html, body {
 .toDoList {
     padding: 8px;
     flex-grow: 1;
+}
+
+.sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    margin-right: 40px;
 }

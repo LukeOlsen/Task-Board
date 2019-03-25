@@ -3,10 +3,6 @@ import {Draggable} from 'react-beautiful-dnd';
 
 const ToDo = (props) => {
 
-    alert = (e) => {
-        e.preventDefault();
-        console.log(props.todo.id)
-    }
 
     return (
         <div>

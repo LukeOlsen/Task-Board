@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Data from './Data';
 import Column from './Column';
 import Popup from './PopUp';
+import Sidebar from './Sidebar';
 import {DragDropContext} from 'react-beautiful-dnd'; 
+import Button from '@material-ui/core/Button';
 import './App.css';
 
 class App extends Component {
@@ -80,30 +82,34 @@ class App extends Component {
 
   addToDo = () => {
     if (this.state.edit === false) {
-      console.log(`${this.state.count}`)
-      let r = this.state.count+1;
-      let newState = this.state;
-      let tempTitle = this.state.tempTitle;
-      let tempDescription = this.state.tempDescription;
-      let tempDate = this.state.tempDate;
-      newState.todo = {
-        ...newState.todo,
-        [r]: {
-          id: `${r}`,
-          title: tempTitle,
-          description: tempDescription,
-          date: tempDate,
-          complete: false
+      if (this.state.tempTitle !== '' && this.state.tempTitle !== null) {
+        console.log(`${this.state.count}`)
+        let r = this.state.count+1;
+        let newState = this.state;
+        let tempTitle = this.state.tempTitle;
+        let tempDescription = this.state.tempDescription;
+        let tempDate = this.state.tempDate;
+        newState.todo = {
+          ...newState.todo,
+          [r]: {
+            id: `${r}`,
+            title: tempTitle,
+            description: tempDescription,
+            date: tempDate,
+            complete: false
 
-        }
-      };
-      newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
-      newState.count = newState.count+1;
-      newState.showPop = false;
-      newState.tempDate = '';
-      newState.tempDescription = '';
-      newState.tempTitle = '';
-      this.setState(newState);
+          }
+        };
+        newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
+        newState.count = newState.count+1;
+        newState.showPop = false;
+        newState.tempDate = '';
+        newState.tempDescription = '';
+        newState.tempTitle = '';
+        this.setState(newState);
+      } else {
+        alert("Please enter a title");
+      }
     } else if (this.state.edit === true) {
       let newState = this.state;
       newState.todo[newState.currentEditId].title = newState.tempTitle;
@@ -153,9 +159,12 @@ class App extends Component {
   render() {
     return (
       <div>
+        <div>
         <h1>Test</h1>
+        <div><Button variant="contained" color="primary" onClick={this.togglePop}>New Task</Button></div>
+        </div>
+        <Sidebar />
         <div className="mainContainer">
-        <div><button onClick={this.togglePop}>showpop</button></div>
           <DragDropContext onDragEnd={this.onDragEnd}>
               {this.state.columnsort.map(columnId => {
                 const column = this.state.columns[columnId];
