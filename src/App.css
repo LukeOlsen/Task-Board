@@ -25,10 +25,15 @@ html, body {
     background: white;
 }
 
+.header {
+    margin-left: 160px;
+}
+
 .to-Do-Container {
     height: 80vh;
     width: 15%;
     border: 2px solid black;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -44,13 +49,19 @@ html, body {
 .mainContainer {
     display: flex;
     justify-content: space-around;
+    margin-left: 160px;
 }
 
 .toDoCard  {
     height: 35px;
     width: 100%;
     margin-top: 5px;
-    border: 2px solid red;
+    border: 2px solid #e6e3e3;
+    background-color: #efefef;
+}
+
+.toDoCard:hover {
+    background-color: #f7f3f3;
 }
 
 .toDoList {
@@ -68,4 +79,6 @@ html, body {
     overflow-x: hidden;
     padding-top: 20px;
     margin-right: 40px;
+    color: white;
+    letter-spacing: 2px;
 }

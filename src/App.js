@@ -159,7 +159,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div className="header">
         <h1>Test</h1>
         <div><Button variant="contained" color="primary" onClick={this.togglePop}>New Task</Button></div>
         </div>
