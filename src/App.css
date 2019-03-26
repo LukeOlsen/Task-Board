@@ -39,6 +39,15 @@ html, body {
     overflow: auto;
 }
 
+.tempTitle {
+    width: 400px;
+}
+
+.infoForm {
+    display: flex;
+    flex-direction: column;
+}
+
 .Todo {
     width: 100%;
     height: 300px;
