@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Data from './Data';
-import Column from './Column';
+import Data from '../Data';
+import Column from '../Column';
 import Popup from './PopUp';
 import Sidebar from './Sidebar';
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
 import './App.css';
-import { runInThisContext } from 'vm';
 
 class App extends Component {
   constructor(props) {
