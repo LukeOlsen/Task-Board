@@ -1,9 +1,9 @@
 import { ADD_ARTICLE } from "../constants/action-types";
+import { TOGGLE_POPUP } from "../constants/action-types";
+import Data from '../Data';
 
 
-const initialState = {
-  articles: []
-};
+const initialState = Data;
 
 
 function rootReducer(state = initialState, action) {
@@ -11,6 +11,10 @@ function rootReducer(state = initialState, action) {
     return Object.assign({}, state, {
       articles: state.articles.concat(action.payload)
     });
+  } else if (action.type === TOGGLE_POPUP) {
+      return Object.assign({}, state, {
+        showPop: !state.showPop
+      });
   }
   return state;
 }

@@ -147,7 +147,6 @@ class App extends Component {
   }
 
   editCard = (l) => {
-    console.log("working");
     let newState = this.state;
     console.log(newState);
     console.log(l)
