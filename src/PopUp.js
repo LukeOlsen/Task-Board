@@ -6,6 +6,9 @@ const Popup = (props) => {
     return(
         <div className="popup">
             <div className="pop_inner">
+            <div className="popTop">
+                <i onClick={props.toggle} className="material-icons clear">clear</i>
+            </div>
                 <form className="infoForm">
                     <TextField 
                         type="text"

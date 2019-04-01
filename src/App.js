@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
 import './App.css';
+import { runInThisContext } from 'vm';
 
 class App extends Component {
   constructor(props) {
@@ -126,7 +127,12 @@ class App extends Component {
   }
 
   togglePop = () => {
-    this.setState({showPop: !this.state.showPop})
+    let newState = this.state;
+    newState.showPop = !this.state.showPop;
+    newState.tempDate = '';
+    newState.tempDescription = '';
+    newState.tempTitle = '';
+    this.setState(newState)
   }
 
   handleTitleChange = tempTitle => {
@@ -174,7 +180,7 @@ class App extends Component {
           </DragDropContext>
         </div>
         {this.state.showPop ?
-        <Popup 
+        <Popup     
           toggle={this.togglePop} 
           handleTitleChange={this.handleTitleChange}
           handleDateChange={this.handleDateChange}

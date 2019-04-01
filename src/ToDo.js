@@ -17,7 +17,8 @@ const ToDo = (props) => {
                     ref={provided.innerRef}
                     onClick={() => props.editCard(props.todo.id)}
                     >
-                        {props.todo.title}
+                        <p>{props.todo.title}</p>
+                        <i class="material-icons">done</i>
                     </div>
                 )}
             </Draggable>
