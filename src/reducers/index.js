@@ -1,4 +1,4 @@
-import { ADD_ARTICLE } from "../constants/action-types";
+import { ADD_ARTICLE, EDIT_CARD, ADD_TODO } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
@@ -35,8 +35,6 @@ function rootReducer(state = initialState, action) {
             [newColumn.id]: newColumn,
           },
         };
-        // this.setState(newState);
-        // return
         }
         if (action.payload.begin !== action.payload.end ) {
           const beginToDoIds = Array.from(action.payload.begin.todoId);
@@ -60,9 +58,20 @@ function rootReducer(state = initialState, action) {
               [newEnd.id]: newEnd,
             }
           }
-        //   console.log(newState)
-        //   this.setState(newState)
         }
+  } else if (action.type === EDIT_CARD) {
+      console.log(action.payload)
+      return {
+          ...state,
+          edit: true,
+          tempTitle: action.payload.title,
+          tempDescription: action.payload.description,
+          tempDate: action.payload.tempDate,
+          currentEditId: action.payload.id,
+          showPop: true
+      }
+  } else if (action.type === ADD_TODO) {
+      
   }
   return state;
 }

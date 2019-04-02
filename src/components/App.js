@@ -30,12 +30,12 @@ class App extends Component {
 
     //this.state = Data;
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.addToDo = this.addToDo.bind(this);
-    this.togglePop = this.togglePop.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.editCard = this.editCard.bind(this);
+    // this.addToDo = this.addToDo.bind(this);
+    // this.togglePop = this.togglePop.bind(this);
+    // this.handleTitleChange = this.handleTitleChange.bind(this);
+    // this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    // this.handleDateChange = this.handleDateChange.bind(this);
+    // this.editCard = this.editCard.bind(this);
   }
 
   onDragEnd = result => {
@@ -56,81 +56,67 @@ class App extends Component {
     this.props.moveToDo({destination, begin, end, beginToDoIds, endToDoIds, draggableId, source})
   }
 
-  addToDo = () => {
-    if (this.state.edit === false) {
-      if (this.state.tempTitle !== '' && this.state.tempTitle !== null) {
-        console.log(`${this.state.count}`)
-        let r = this.state.count+1;
-        let newState = this.state;
-        let tempTitle = this.state.tempTitle;
-        let tempDescription = this.state.tempDescription;
-        let tempDate = this.state.tempDate;
-        newState.todo = {
-          ...newState.todo,
-          [r]: {
-            id: `${r}`,
-            title: tempTitle,
-            description: tempDescription,
-            date: tempDate,
-            complete: false
+  // addToDo = () => {
+  //   if (this.state.edit === false) {
+  //     if (this.state.tempTitle !== '' && this.state.tempTitle !== null) {
+  //       console.log(`${this.state.count}`)
+  //       let r = this.state.count+1;
+  //       let newState = this.state;
+  //       let tempTitle = this.state.tempTitle;
+  //       let tempDescription = this.state.tempDescription;
+  //       let tempDate = this.state.tempDate;
+  //       newState.todo = {
+  //         ...newState.todo,
+  //         [r]: {
+  //           id: `${r}`,
+  //           title: tempTitle,
+  //           description: tempDescription,
+  //           date: tempDate,
+  //           complete: false
 
-          }
-        };
-        newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
-        newState.count = newState.count+1;
-        newState.showPop = false;
-        newState.tempDate = '';
-        newState.tempDescription = '';
-        newState.tempTitle = '';
-        this.setState(newState);
-      } else {
-        alert("Please enter a title");
-      }
-    } else if (this.state.edit === true) {
-      let newState = this.state;
-      newState.todo[newState.currentEditId].title = newState.tempTitle;
-      newState.todo[newState.currentEditId].description = newState.tempDescription;
-      newState.todo[newState.currentEditId].date = newState.tempDate;
-      newState.tempDate = '';
-      newState.tempDescription = '';
-      newState.tempTitle = '';
-      newState.edit = false;
-      newState.currentEditId = '';
-      newState.showPop = false;
-      this.setState(newState);
-    }
-  }
+  //         }
+  //       };
+  //       newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
+  //       newState.count = newState.count+1;
+  //       newState.showPop = false;
+  //       newState.tempDate = '';
+  //       newState.tempDescription = '';
+  //       newState.tempTitle = '';
+  //       this.setState(newState);
+  //     } else {
+  //       alert("Please enter a title");
+  //     }
+  //   } else if (this.state.edit === true) {
+  //     let newState = this.state;
+  //     newState.todo[newState.currentEditId].title = newState.tempTitle;
+  //     newState.todo[newState.currentEditId].description = newState.tempDescription;
+  //     newState.todo[newState.currentEditId].date = newState.tempDate;
+  //     newState.tempDate = '';
+  //     newState.tempDescription = '';
+  //     newState.tempTitle = '';
+  //     newState.edit = false;
+  //     newState.currentEditId = '';
+  //     newState.showPop = false;
+  //     this.setState(newState);
+  //   }
+  // }
 
   togglePop = () => {
     let test = !this.props.showPop
     this.props.togglePop({test});
   }
 
-  handleTitleChange = tempTitle => {
-    this.setState({tempTitle});
-  }
+  // handleTitleChange = tempTitle => {
+  //   this.setState({tempTitle});
+  // }
 
-  handleDateChange = tempDate => {
-    this.setState({tempDate});
-  }
+  // handleDateChange = tempDate => {
+  //   this.setState({tempDate});
+  // }
 
-  handleDescriptionChange = tempDescription => {
-    this.setState({tempDescription})
-  }
-
-  editCard = (l) => {
-    let newState = this.state;
-    console.log(newState);
-    console.log(l)
-    newState.edit = true;
-    newState.tempTitle = this.state.todo[l].title;
-    newState.tempDescription = this.state.todo[l].description;
-    newState.tempDate = this.state.todo[l].date;
-    newState.currentEditId = l;
-    newState.showPop = true;
-    console.log(newState);
-    this.setState(newState);
-  }
+  // handleDescriptionChange = tempDescription => {
+  //   this.setState({tempDescription})
+  // }
 
 
   render() {
@@ -152,8 +138,7 @@ class App extends Component {
           </DragDropContext>
         </div>
         {this.props.showPop ?
-        <Popup     
-          toggle={this.togglePop} 
+        <Popup
           // handleTitleChange={this.handleTitleChange}
           // handleDateChange={this.handleDateChange}
           // handleDescriptionChange={this.handleDescriptionChange}

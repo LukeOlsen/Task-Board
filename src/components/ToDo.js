@@ -1,8 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { editCard } from '../actions/index';
 import {Draggable} from 'react-beautiful-dnd';
 
-const ToDo = (props) => {
+const mapStateToProps = state => {
+    return {
 
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        editCard: card => dispatch(editCard(card))
+    }
+}
+
+const ToDo = (props) => {
+    console.log(props)
 
     return (
         <div>
@@ -15,7 +29,7 @@ const ToDo = (props) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
-                    onClick={() => props.editCard(props.todo.id)}
+                    onClick={() => props.editCard(props.todo)}
                     >
                         <p>{props.todo.title}</p>
                         <i class="material-icons">done</i>
@@ -26,4 +40,4 @@ const ToDo = (props) => {
     )
 }
 
-export default ToDo;
+export default connect(mapStateToProps, mapDispatchToProps)(ToDo);
