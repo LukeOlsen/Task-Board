@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import Data from '../Data';
-import Column from '../Column';
+import Column from './Column';
 import Popup from './PopUp';
 import Sidebar from './Sidebar';
+import { connect } from "react-redux";
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
-import './App.css';
+import '../App.css';
+
+const mapStateToProps = state => {
+  return { 
+    todo: state.todo,
+    columns: state.columns,
+    columnsort: state.columnsort,
+    showPop: state.showPop
+   };
+};
 
 class App extends Component {
   constructor(props) {
     super(props)
 
-    this.state = Data;
+    //this.state = Data;
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addToDo = this.addToDo.bind(this);
     this.togglePop = this.togglePop.bind(this);
@@ -160,7 +170,9 @@ class App extends Component {
     this.setState(newState);
   }
 
+
   render() {
+    console.log(this.props)
     return (
       <div>
         <div className="header">
@@ -170,14 +182,14 @@ class App extends Component {
         <Sidebar />
         <div className="mainContainer">
           <DragDropContext onDragEnd={this.onDragEnd}>
-              {this.state.columnsort.map(columnId => {
-                const column = this.state.columns[columnId];
-                const todos = column.todoId.map(todoId => this.state.todo[todoId]);
+              {this.props.columnsort.map(columnId => {
+                const column = this.props.columns[columnId];
+                const todos = column.todoId.map(todoId => this.props.todo[todoId]);
                 return <Column key={column.id} column={column} todos={todos} editCard={this.editCard} />;
               })}
           </DragDropContext>
         </div>
-        {this.state.showPop ?
+        {this.props.showPop ?
         <Popup     
           toggle={this.togglePop} 
           handleTitleChange={this.handleTitleChange}
@@ -194,4 +206,6 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
+
+

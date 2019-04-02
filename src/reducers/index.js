@@ -1,5 +1,6 @@
 import { ADD_ARTICLE } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
+import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
 
 
@@ -15,6 +16,10 @@ function rootReducer(state = initialState, action) {
       return Object.assign({}, state, {
         showPop: !state.showPop
       });
+  } else if (action.type === MOVE_TODO) {
+      return Object.assign({}, state, {
+
+      })
   }
   return state;
 }
