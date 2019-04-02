@@ -71,7 +71,78 @@ function rootReducer(state = initialState, action) {
           showPop: true
       }
   } else if (action.type === ADD_TODO) {
+    if (this.state.edit === false) {
+            if (state.tempTitle !== '' && state.tempTitle !== null) {
+              console.log(`${state.count}`)
+              let r = state.count+1;
+
+              return Object.assign({}, state, {
+                  ...state,
+                  todo: {
+                      ...state.todo,
+                      [r]: {
+                          id: `${r}`,
+                          title: state.tempTitle,
+                          date: state.tempDate,
+                          description: state.tempDescription,
+                          complete: false
+                      }
+                  },
+                  columns: {
+                      ...state.columns,
+                      'col-1': {
+                          ...state.columns['col-1'],
+                          todoId: [...state.columns['col-1'].todoId, `${r}`]
+                      }
+                  },
+                  count: state.count+1,
+                  showPop: false,
+                  tempDate: '',
+                  tempTitle: '',
+                  tempDescription: ''
+              })
+            //   let newState = this.state;
+            //   let tempTitle = this.state.tempTitle;
+            //   let tempDescription = this.state.tempDescription;
+            //   let tempDate = this.state.tempDate;
+            //   newState.todo = {
+            //     ...newState.todo,
+            //     [r]: {
+            //       id: `${r}`,
+            //       title: tempTitle,
+            //       description: tempDescription,
+            //       date: tempDate,
+            //       complete: false
       
+            //     }
+            //   };
+            //   newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
+            //   newState.count = newState.count+1;
+            //   newState.showPop = false;
+            //   newState.tempDate = '';
+            //   newState.tempDescription = '';
+            //   newState.tempTitle = '';
+            //   this.setState(newState);
+            } else {
+              alert("Please enter a title");
+            }
+          } else if (this.state.edit === true) {
+              return Object.assign({}, state, {
+                  ...state,
+                  todo[currentEditId].title = tempTitle
+              })
+            // let newState = this.state;
+            // newState.todo[newState.currentEditId].title = newState.tempTitle;
+            // newState.todo[newState.currentEditId].description = newState.tempDescription;
+            // newState.todo[newState.currentEditId].date = newState.tempDate;
+            // newState.tempDate = '';
+            // newState.tempDescription = '';
+            // newState.tempTitle = '';
+            // newState.edit = false;
+            // newState.currentEditId = '';
+            // newState.showPop = false;
+            // this.setState(newState);
+          }
   }
   return state;
 }

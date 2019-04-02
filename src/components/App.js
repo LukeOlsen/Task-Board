@@ -35,7 +35,6 @@ class App extends Component {
     // this.handleTitleChange = this.handleTitleChange.bind(this);
     // this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     // this.handleDateChange = this.handleDateChange.bind(this);
-    // this.editCard = this.editCard.bind(this);
   }
 
   onDragEnd = result => {
