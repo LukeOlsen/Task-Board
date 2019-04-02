@@ -18,7 +18,7 @@ function rootReducer(state = initialState, action) {
       });
   } else if (action.type === MOVE_TODO) {
       return Object.assign({}, state, {
-
+        
       })
   }
   return state;

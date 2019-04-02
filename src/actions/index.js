@@ -11,5 +11,5 @@ export function addArticle(payload) {
   }
 
   export function moveToDo(payload) {
-      return {type: }
+      return {type: MOVE_TODO, payload}
   }
