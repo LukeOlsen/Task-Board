@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Data from '../Data';
 import Column from './Column';
 import Popup from './PopUp';
 import Sidebar from './Sidebar';
 import { connect } from "react-redux";
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
+import { togglePopUp, moveToDo } from '../actions/index';
 import '../App.css';
 
 const mapStateToProps = state => {
@@ -17,18 +17,19 @@ const mapStateToProps = state => {
    };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    togglePop: pop => dispatch(togglePopUp(pop)),
+    moveToDo: todo => dispatch(moveToDo(todo))
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
 
-    //this.state = Data;
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.addToDo = this.addToDo.bind(this);
     this.togglePop = this.togglePop.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.editCard = this.editCard.bind(this);
   }
 
   onDragEnd = result => {
@@ -42,137 +43,19 @@ class App extends Component {
     ) {
       return;
     }
-    const begin = this.state.columns[source.droppableId];
-    const end = this.state.columns[destination.droppableId];
-    if (begin === end){
-    const newToDoIds = Array.from(begin.todoId);
-    newToDoIds.splice(source.index, 1);
-    newToDoIds.splice(destination.index, 0, draggableId);
-    const newColumn = {
-      ...begin,
-      todoId: newToDoIds,
-    };
-    console.log(newColumn)
-    const newState = {
-      ...this.state,
-      columns: {
-        ...this.state.columns,
-        [newColumn.id]: newColumn,
-      },
-    };
-    this.setState(newState);
-    return
-    }
-    if (begin !== end ) {
-      const beginToDoIds = Array.from(begin.todoId);
-      beginToDoIds.splice(source.index, 1);
-      const newBegin = {
-        ...begin,
-        todoId: beginToDoIds
-      }
-      console.log(newBegin)
-      const endToDoIds = Array.from(end.todoId);
-      endToDoIds.splice(destination.index, 0, draggableId);
-      const newEnd = {
-        ...end,
-        todoId: endToDoIds
-      }
-      const newState = {
-        ...this.state,
-        columns: {
-          ...this.state.columns,
-          [newBegin.id]: newBegin,
-          [newEnd.id]: newEnd,
-        }
-      }
-      console.log(newState)
-      this.setState(newState)
-    }
-  }
-
-  addToDo = () => {
-    if (this.state.edit === false) {
-      if (this.state.tempTitle !== '' && this.state.tempTitle !== null) {
-        console.log(`${this.state.count}`)
-        let r = this.state.count+1;
-        let newState = this.state;
-        let tempTitle = this.state.tempTitle;
-        let tempDescription = this.state.tempDescription;
-        let tempDate = this.state.tempDate;
-        newState.todo = {
-          ...newState.todo,
-          [r]: {
-            id: `${r}`,
-            title: tempTitle,
-            description: tempDescription,
-            date: tempDate,
-            complete: false
-
-          }
-        };
-        newState.columns['col-1'].todoId = [...newState.columns['col-1'].todoId, `${r}`];
-        newState.count = newState.count+1;
-        newState.showPop = false;
-        newState.tempDate = '';
-        newState.tempDescription = '';
-        newState.tempTitle = '';
-        this.setState(newState);
-      } else {
-        alert("Please enter a title");
-      }
-    } else if (this.state.edit === true) {
-      let newState = this.state;
-      newState.todo[newState.currentEditId].title = newState.tempTitle;
-      newState.todo[newState.currentEditId].description = newState.tempDescription;
-      newState.todo[newState.currentEditId].date = newState.tempDate;
-      newState.tempDate = '';
-      newState.tempDescription = '';
-      newState.tempTitle = '';
-      newState.edit = false;
-      newState.currentEditId = '';
-      newState.showPop = false;
-      this.setState(newState);
-    }
+    const begin = this.props.columns[source.droppableId];
+    const end = this.props.columns[destination.droppableId];
+    let beginToDoIds = begin.todoId;
+    let endToDoIds = end.todoId;
+    this.props.moveToDo({destination, begin, end, beginToDoIds, endToDoIds, draggableId, source})
   }
 
   togglePop = () => {
-    let newState = this.state;
-    newState.showPop = !this.state.showPop;
-    newState.tempDate = '';
-    newState.tempDescription = '';
-    newState.tempTitle = '';
-    this.setState(newState)
+    let test = !this.props.showPop
+    this.props.togglePop({test});
   }
-
-  handleTitleChange = tempTitle => {
-    this.setState({tempTitle});
-  }
-
-  handleDateChange = tempDate => {
-    this.setState({tempDate});
-  }
-
-  handleDescriptionChange = tempDescription => {
-    this.setState({tempDescription})
-  }
-
-  editCard = (l) => {
-    let newState = this.state;
-    console.log(newState);
-    console.log(l)
-    newState.edit = true;
-    newState.tempTitle = this.state.todo[l].title;
-    newState.tempDescription = this.state.todo[l].description;
-    newState.tempDate = this.state.todo[l].date;
-    newState.currentEditId = l;
-    newState.showPop = true;
-    console.log(newState);
-    this.setState(newState);
-  }
-
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <div className="header">
@@ -190,22 +73,12 @@ class App extends Component {
           </DragDropContext>
         </div>
         {this.props.showPop ?
-        <Popup     
-          toggle={this.togglePop} 
-          handleTitleChange={this.handleTitleChange}
-          handleDateChange={this.handleDateChange}
-          handleDescriptionChange={this.handleDescriptionChange}
-          tempTitle={this.state.tempTitle}
-          tempDate={this.state.tempDate}
-          tempDescription={this.state.tempDescription}
-          addToDo={this.addToDo}
-          editCard={this.editCard}
-        /> : null}
+        <Popup /> : null}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
