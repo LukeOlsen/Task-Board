@@ -1,4 +1,4 @@
-import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC } from "../constants/action-types";
+import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
@@ -133,6 +133,11 @@ function rootReducer(state = initialState, action) {
       ...state,
       tempDescription: action.payload
     })
+  } else if (action.type === COMPLETE_TODO) {
+      let newState = state;
+      newState.todo[state.currentEditId].complete = true;
+      console.log(newState);
+      return newState;
   }
   return state;
 }

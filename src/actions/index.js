@@ -1,4 +1,4 @@
-import { TOGGLE_POPUP } from "../constants/action-types";
+import { TOGGLE_POPUP, COMPLETE_TODO } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import { EDIT_CARD } from "../constants/action-types";
 import { ADD_TODO } from "../constants/action-types";
@@ -33,4 +33,8 @@ import { EDIT_TEMP_DATE } from "../constants/action-types";
 
   export function editTempDescription(payload) {
       return {type: EDIT_TEMP_DESC, payload}
+  }
+
+  export function completeToDo(payload) {
+      return {type: COMPLETE_TODO, payload}
   }

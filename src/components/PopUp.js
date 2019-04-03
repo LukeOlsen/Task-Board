@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editTempDate, editTempDescription, editTempTitle, togglePopUp, addToDo } from '../actions/index';
+import { editTempDate, editTempDescription, editTempTitle, togglePopUp, addToDo, completeToDo } from '../actions/index';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -19,7 +19,8 @@ const mapDispatchToProps = dispatch => {
         editTempTitle: title => dispatch(editTempTitle(title)),
         editTempDate: date => dispatch(editTempDate(date)),
         editTempDescription: desc => dispatch(editTempDescription(desc)),
-        addToDo: todo => dispatch(addToDo(todo))
+        addToDo: todo => dispatch(addToDo(todo)),
+        completeToDo: todo => dispatch(completeToDo(todo))
     }
 }
 
@@ -41,6 +42,9 @@ class Popup extends Component {
         return(
             <div className="popup">
                 <div className="pop_inner">
+                <div className="completeSection">
+                    <i onClick={event => this.props.completeToDo()} className="material-icons">done</i>
+                </div>
                 <div className="popTop">
                     <i onClick={this.togglePop} className="material-icons clear">clear</i>
                 </div>

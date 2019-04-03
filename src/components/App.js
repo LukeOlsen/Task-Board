@@ -68,7 +68,7 @@ class App extends Component {
               {this.props.columnsort.map(columnId => {
                 const column = this.props.columns[columnId];
                 const todos = column.todoId.map(todoId => this.props.todo[todoId]);
-                return <Column key={column.id} column={column} todos={todos} editCard={this.editCard} />;
+                return <Column key={column.id} column={column} todos={todos} />;
               })}
           </DragDropContext>
         </div>

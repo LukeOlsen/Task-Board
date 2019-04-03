@@ -31,7 +31,6 @@ const ToDo = (props) => {
                     onClick={() => props.editCard(props.todo)}
                     >
                         <p>{props.todo.title}</p>
-                        <i className="material-icons">done</i>
                     </div>
                 )}
             </Draggable>
