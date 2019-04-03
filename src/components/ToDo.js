@@ -5,7 +5,8 @@ import {Draggable} from 'react-beautiful-dnd';
 
 const mapStateToProps = state => {
     return {
-        showPop: state.showPop
+        showPop: state.showPop,
+        currentEditId: state.currentEditId
     }
 }
 
@@ -16,7 +17,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const ToDo = (props) => {
-
+    console.log(props.todo.complete)
     return (
         <div>
             <Draggable
@@ -24,14 +25,24 @@ const ToDo = (props) => {
                 index={props.index}
             >
                 {provided =>(
-                    <div className="toDoCard"
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    ref={provided.innerRef}
-                    onClick={() => props.editCard(props.todo)}
-                    >
-                        <p>{props.todo.title}</p>
-                    </div>
+                    props.todo.complete ?
+                        <div className="toDoCard complete"
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        onClick={() => props.editCard(props.todo)}
+                        >
+                            <p>{props.todo.title}</p>
+                        </div>
+                    : 
+                        <div className="toDoCard"
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        onClick={() => props.editCard(props.todo)}
+                        >
+                            <p>{props.todo.title}</p>
+                        </div>
                 )}
             </Draggable>
         </div>

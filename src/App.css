@@ -109,3 +109,7 @@ html, body {
     color: white;
     letter-spacing: 2px;
 }
+
+.complete {
+    opacity: 0.1;
+}
