@@ -8,9 +8,7 @@ const initialState = Data;
 
 
 function rootReducer(state = initialState, action) {
-  console.log(state)
-  console.log(state.projects)
-  console.log(state.projects[state.projects.active].data.columnsort)
+    console.log(state)
    if (action.type === TOGGLE_POPUP) {
       console.log(action.payload.test)
       let temp = state.projects.active;
@@ -42,11 +40,20 @@ function rootReducer(state = initialState, action) {
         };
         console.log(newColumn)
         return Object.assign({}, state,  {
-          ...state,
-          columns: {
-            ...state.columns,
-            [newColumn.id]: newColumn,
-          },
+            ...state, 
+            projects: {
+                ...state.projects,
+                [state.projects.active]: {
+                    ...state.projects[state.projects.active],
+                    data: {
+                        ...state.projects[state.projects.active].data, 
+                        columns: {
+                            ...state.projects[state.projects.active].data,
+                            [newColumn.id]: newColumn,
+                        }
+                    }
+                }
+            }
         });
         }
         if (action.payload.begin !== action.payload.end ) {
@@ -64,24 +71,42 @@ function rootReducer(state = initialState, action) {
             todoId: endToDoIds
           }
           return Object.assign({}, state, {
-            ...state,
-            columns: {
-              ...state.columns,
-              [newBegin.id]: newBegin,
-              [newEnd.id]: newEnd,
+            ...state, 
+            projects: {
+                ...state.projects,
+                [state.projects.active]: {
+                    ...state.projects[state.projects.active],
+                    data: {
+                        ...state.projects[state.projects.active].data, 
+                        columns: {
+                            ...state.projects[state.projects.active].data,
+                            [newBegin.id]: newBegin,
+                            [newEnd.id]: newEnd
+                        }
+                    }
+                }
             }
           })
         }
   } else if (action.type === EDIT_CARD) {
       console.log(action.payload)
       return Object.assign({}, state, {
-          ...state,
-          edit: true,
-          tempTitle: action.payload.title,
-          tempDescription: action.payload.description,
-          tempDate: action.payload.tempDate,
-          currentEditId: action.payload.id,
-          showPop: true
+        ...state, 
+        projects: {
+            ...state.projects,
+            [state.projects.active]: {
+                ...state.projects[state.projects.active],
+                data: {
+                    ...state.projects[state.projects.active].data, 
+                    edit: true,
+                    tempTitle: action.payload.title,
+                    tempDescription: action.payload.description,
+                    tempDate: action.payload.tempDate,
+                    currentEditId: action.payload.id,
+                    showPop: true
+                }
+            }
+        }
       })
   } else if (action.type === ADD_TODO) {
     console.log(state)
