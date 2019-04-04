@@ -6,10 +6,10 @@ import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => {
     return {
-        tempTitle: state.tempTitle,
-        tempDate: state.tempDate,
-        tempDescription: state.tempDescription,
-        showPop: state.showPop
+        tempTitle: state.projects[state.projects.active].data.tempTitle,
+        tempDate: state.projects[state.projects.active].data.tempDate,
+        tempDescription: state.projects[state.projects.active].data.tempDescription,
+        showPop: state.projects[state.projects.active].data.showPop
     }
 }
 

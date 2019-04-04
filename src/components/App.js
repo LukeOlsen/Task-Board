@@ -6,14 +6,16 @@ import { connect } from "react-redux";
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
 import { togglePopUp, moveToDo } from '../actions/index';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import '../App.css';
 
 const mapStateToProps = state => {
   return { 
-    todo: state.todo,
-    columns: state.columns,
-    columnsort: state.columnsort,
-    showPop: state.showPop
+    projects: state.projects,
+    todo: state.projects[state.projects.active].data.todo,
+    columns: state.projects[state.projects.active].data.columns,
+    showPop: state.projects[state.projects.active].data.showPop,
+    columnsort: state.projects[state.projects.active].data.columnsort
    };
 };
 
@@ -56,6 +58,14 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props)
+    console.log(this.props.projects.active)
+    console.log("here")
+    console.log(this.props.projects[this.props.projects.active])
+    console.log("here")
+    console.log(this.props.columnsort.map(d => {
+      return this.props.columns[d]
+    }))
     return (
       <div>
         <div className="header">
@@ -64,13 +74,17 @@ class App extends Component {
         </div>
         <Sidebar />
         <div className="mainContainer">
+        {this.props ? 
           <DragDropContext onDragEnd={this.onDragEnd}>
-              {this.props.columnsort.map(columnId => {
-                const column = this.props.columns[columnId];
-                const todos = column.todoId.map(todoId => this.props.todo[todoId]);
-                return <Column key={column.id} column={column} todos={todos} />;
-              })}
+            {this.props.columnsort.map(columnId => {
+              const column = this.props.columns[columnId];
+              const todos = column.todoId.map(todoId => this.props.todo[todoId]);
+              return <Column key={column.id} column={column} todos={todos} />;
+            })}
           </DragDropContext>
+        : 
+          <CircularProgress />
+        }
         </div>
         {this.props.showPop ?
         <Popup /> : null}

@@ -9,13 +9,26 @@ const initialState = Data;
 
 function rootReducer(state = initialState, action) {
   console.log(state)
+  console.log(state.projects)
+  console.log(state.projects[state.projects.active].data.columnsort)
    if (action.type === TOGGLE_POPUP) {
       console.log(action.payload.test)
+      let temp = state.projects.active;
       return Object.assign({}, state, {
-        showPop: action.payload.test,
-        tempTitle: '',
-        tempDate: '',
-        tempDescription: ''
+        ...state, 
+        projects: {
+            ...state.projects,
+            [temp]: {
+                ...state.projects[temp],
+                data: {
+                    ...state.projects[temp].data, 
+                    showPop: action.payload.test,
+                    tempTitle: '',
+                    tempDate: '',
+                    tempDescription: ''
+                }
+            }
+        }
       });
   } else if (action.type === MOVE_TODO) {
       console.log(action.payload)
