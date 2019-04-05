@@ -101,7 +101,7 @@ function rootReducer(state = initialState, action) {
                     edit: true,
                     tempTitle: action.payload.title,
                     tempDescription: action.payload.description,
-                    tempDate: action.payload.tempDate,
+                    tempDate: action.payload.date,
                     currentEditId: action.payload.id,
                     showPop: true
                 }
@@ -111,10 +111,12 @@ function rootReducer(state = initialState, action) {
   } else if (action.type === ADD_TODO) {
     console.log(state)
     if (state.projects[state.projects.active].data.edit === false) {
-      alert("WORK")
             if (state.tempTitle !== '' && state.tempTitle !== null) {
               console.log(`${state.count}`)
-              let r = state.count+1;
+              let r = state.projects[state.projects.active].data.count+1;
+              console.log(r)
+              console.log(r)
+              console.log(r)
 
               return Object.assign({}, state, {
                 ...state, 
@@ -141,7 +143,7 @@ function rootReducer(state = initialState, action) {
                                   todoId: [...state.projects[state.projects.active].data.columns['col-1'].todoId, `${r}`]
                               }
                           },
-                          count: state.count+1,
+                          count: state.projects[state.projects.active].data.count+1,
                           showPop: false,
                           tempDate: '',
                           tempTitle: '',
