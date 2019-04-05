@@ -5,6 +5,7 @@ import { ADD_TODO } from "../constants/action-types";
 import { EDIT_TEMP_TITLE } from "../constants/action-types";
 import { EDIT_TEMP_DESC } from "../constants/action-types";
 import { EDIT_TEMP_DATE } from "../constants/action-types";
+import { SET_PROJECT } from "../constants/action-types";
 
 
   export function togglePopUp(payload) {
@@ -37,4 +38,8 @@ import { EDIT_TEMP_DATE } from "../constants/action-types";
 
   export function completeToDo(payload) {
       return {type: COMPLETE_TODO, payload}
+  }
+
+  export function setActiveProject(payload) {
+      return {type: SET_PROJECT, payload}
   }

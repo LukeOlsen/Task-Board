@@ -1,4 +1,4 @@
-import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO } from "../constants/action-types";
+import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
@@ -8,7 +8,6 @@ const initialState = Data;
 
 
 function rootReducer(state = initialState, action) {
-    console.log(state)
    if (action.type === TOGGLE_POPUP) {
       console.log(action.payload.test)
       let temp = state.projects.active;
@@ -112,11 +111,7 @@ function rootReducer(state = initialState, action) {
     console.log(state)
     if (state.projects[state.projects.active].data.edit === false) {
             if (state.tempTitle !== '' && state.tempTitle !== null) {
-              console.log(`${state.count}`)
               let r = state.projects[state.projects.active].data.count+1;
-              console.log(r)
-              console.log(r)
-              console.log(r)
 
               return Object.assign({}, state, {
                 ...state, 
@@ -217,6 +212,14 @@ function rootReducer(state = initialState, action) {
       newState.projects[state.projects.active].data.todo[state.projects[state.projects.active].data.currentEditId].complete = true;
       console.log(newState);
       return newState;
+  } else if (action.type === SET_PROJECT) {
+      return Object.assign({}, state, {
+        ...state,
+        projects: {
+            ...state.projects,
+            active: action.payload
+        }
+      });
   }
   return state;
 }

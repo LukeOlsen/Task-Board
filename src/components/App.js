@@ -58,14 +58,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props)
-    console.log(this.props.projects.active)
-    console.log("here")
-    console.log(this.props.projects[this.props.projects.active])
-    console.log("here")
-    console.log(this.props.columnsort.map(d => {
-      return this.props.columns[d]
-    }))
     return (
       <div>
         <div className="header">
