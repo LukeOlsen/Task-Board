@@ -7,3 +7,4 @@ export const EDIT_TEMP_DESC = "EDIT_TEMP_DESC";
 export const EDIT_TEMP_DATE = "EDIT_TEMP_DATE";
 export const COMPLETE_TODO = "COMPLETE_TODO";
 export const SET_PROJECT = "SET_PROJECT";
+export const ADD_PROJECT = "ADD_PROJECT";

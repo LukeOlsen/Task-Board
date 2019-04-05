@@ -2,6 +2,7 @@ const Data = {
     user: 'Luke',
     projects: {
         active: '1',
+        numberOfProjects: 2,
         '1': {
             id: '1',
             title: 'New Project',

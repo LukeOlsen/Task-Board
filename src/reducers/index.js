@@ -1,4 +1,4 @@
-import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT } from "../constants/action-types";
+import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
@@ -220,7 +220,59 @@ function rootReducer(state = initialState, action) {
             active: action.payload
         }
       });
-  }
+   } else if (action.type === ADD_PROJECT) {
+       let temp = state.projects.numberOfProjects+1;
+        return Object.assign({}, state, {
+            ...state,
+            projects: {
+                ...state.projects,
+                numberOfProjects: temp,
+                [temp]: {
+                    id: `${temp}`,
+                    title: 'Temp Title',
+                    todo: {
+                        '1': {
+                            id: '1',
+                            title: 'test title',
+                            description: 'test description',
+                            dueDate: '',
+                            complete: false
+                        }
+                    },
+                    columns: {
+                        'col-1': {
+                            id: 'col-1',
+                            title: 'To Do',
+                            todoId: ['1', '2']
+                        },
+                        'col-2': {
+                            id: 'col-2',
+                            title: 'In Progress',
+                            todoId: ['3']
+                        },
+                        'col-3': {
+                            id: 'col-3',
+                            title: 'Awaiting Approval',
+                            todoId: []
+                        },
+                        'col-4': {
+                            id: 'col-4',
+                            title: 'Complete',
+                            todoId: []
+                        }
+                    },
+                    columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
+                    count: 3,
+                    showPop: false,
+                    edit: false,
+                    currentEditId: '',
+                    tempTitle: '',
+                    tempDate: '',
+                    tempDescription: ''
+                }
+            }
+        })
+   }
   return state;
 }
 
