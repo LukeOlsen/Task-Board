@@ -48,7 +48,7 @@ function rootReducer(state = initialState, action) {
                     data: {
                         ...state.projects[state.projects.active].data, 
                         columns: {
-                            ...state.projects[state.projects.active].data,
+                            ...state.projects[state.projects.active].data.columns,
                             [newColumn.id]: newColumn,
                         }
                     }
@@ -79,7 +79,7 @@ function rootReducer(state = initialState, action) {
                     data: {
                         ...state.projects[state.projects.active].data, 
                         columns: {
-                            ...state.projects[state.projects.active].data,
+                            ...state.projects[state.projects.active].data.columns,
                             [newBegin.id]: newBegin,
                             [newEnd.id]: newEnd
                         }
@@ -110,70 +110,109 @@ function rootReducer(state = initialState, action) {
       })
   } else if (action.type === ADD_TODO) {
     console.log(state)
-    if (state.edit === false) {
+    if (state.projects[state.projects.active].data.edit === false) {
+      alert("WORK")
             if (state.tempTitle !== '' && state.tempTitle !== null) {
               console.log(`${state.count}`)
               let r = state.count+1;
 
               return Object.assign({}, state, {
-                  ...state,
-                  todo: {
-                      ...state.todo,
-                      [r]: {
-                          id: `${r}`,
-                          title: state.tempTitle,
-                          date: state.tempDate,
-                          description: state.tempDescription,
-                          complete: false
-                      }
-                  },
-                  columns: {
-                      ...state.columns,
-                      'col-1': {
-                          ...state.columns['col-1'],
-                          todoId: [...state.columns['col-1'].todoId, `${r}`]
-                      }
-                  },
-                  count: state.count+1,
-                  showPop: false,
-                  tempDate: '',
-                  tempTitle: '',
-                  tempDescription: ''
+                ...state, 
+                projects: {
+                    ...state.projects,
+                    [state.projects.active]: {
+                        ...state.projects[state.projects.active],
+                        data: {
+                            ...state.projects[state.projects.active].data, 
+                            todo: {
+                              ...state.projects[state.projects.active].data.todo,
+                              [r]: {
+                                  id: `${r}`,
+                                  title: state.projects[state.projects.active].data.tempTitle,
+                                  date: state.projects[state.projects.active].data.tempDate,
+                                  description: state.projects[state.projects.active].data.tempDescription,
+                                  complete: false
+                              }
+                          },
+                          columns: {
+                              ...state.projects[state.projects.active].data.columns,
+                              ['col-1']: {
+                                  ...state.projects[state.projects.active].data.columns['col-1'],
+                                  todoId: [...state.projects[state.projects.active].data.columns['col-1'].todoId, `${r}`]
+                              }
+                          },
+                          count: state.count+1,
+                          showPop: false,
+                          tempDate: '',
+                          tempTitle: '',
+                          tempDescription: ''
+                        }
+                    }
+                }
               })
             } else {
               alert("Please enter a title");
             }
-          } else if (state.edit === true) {
+          } else if (state.projects[state.projects.active].data.edit === true) {
             let newState = state;
-            newState.todo[newState.currentEditId].title = newState.tempTitle;
-            newState.todo[newState.currentEditId].description = newState.tempDescription;
-            newState.todo[newState.currentEditId].date = newState.tempDate;
-            newState.tempDate = '';
-            newState.tempDescription = '';
-            newState.tempTitle = '';
-            newState.edit = false;
-            newState.currentEditId = '';
-            newState.showPop = false;
+            console.log(newState.projects[state.projects.active].data)
+            console.log(newState.projects[state.projects.active].data.todo)
+            newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].title = newState.projects[state.projects.active].data.tempTitle;
+            newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].description = newState.projects[state.projects.active].data.tempDescription;
+            newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].date = newState.projects[state.projects.active].data.tempDate;
+            newState.projects[state.projects.active].data.tempDate = '';
+            newState.projects[state.projects.active].data.tempDescription = '';
+            newState.projects[state.projects.active].data.tempTitle = '';
+            newState.projects[state.projects.active].data.edit = false;
+            newState.projects[state.projects.active].data.currentEditId = '';
+            newState.projects[state.projects.active].data.showPop = false;
             return Object.assign({}, newState)
           }
   } else if (action.type === EDIT_TEMP_TITLE) {
     return Object.assign({}, state, {
       ...state,
-      tempTitle: action.payload
+      projects: {
+        ...state.projects,
+        [state.projects.active]: {
+            ...state.projects[state.projects.active],
+            data: {
+                ...state.projects[state.projects.active].data, 
+                tempTitle: action.payload
+            }
+        }
+      }
     })
   } else if (action.type === EDIT_TEMP_DATE) {
     return Object.assign({}, state, {
-      ...state, 
-      tempDate: action.payload    
+      ...state,
+      projects: {
+        ...state.projects,
+        [state.projects.active]: {
+            ...state.projects[state.projects.active],
+            data: {
+                ...state.projects[state.projects.active].data,
+                tempDate: action.payload
+            }
+        }
+      }   
     })
   } else if (action.type === EDIT_TEMP_DESC) {
     return Object.assign({}, state, {
       ...state,
-      tempDescription: action.payload
+      projects: {
+        ...state.projects,
+        [state.projects.active]: {
+            ...state.projects[state.projects.active],
+            data: {
+                ...state.projects[state.projects.active].data,
+                tempDescription: action.payload
+            }
+        }
+      }
     })
   } else if (action.type === COMPLETE_TODO) {
       let newState = state;
-      newState.todo[state.currentEditId].complete = true;
+      newState.projects[state.projects.active].data.todo[state.projects[state.projects.active].data.currentEditId].complete = true;
       console.log(newState);
       return newState;
   }
