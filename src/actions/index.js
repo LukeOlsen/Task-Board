@@ -1,4 +1,4 @@
-import { TOGGLE_POPUP, COMPLETE_TODO, ADD_PROJECT } from "../constants/action-types";
+import { TOGGLE_POPUP, COMPLETE_TODO, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import { EDIT_CARD } from "../constants/action-types";
 import { ADD_TODO } from "../constants/action-types";
@@ -46,4 +46,12 @@ import { SET_PROJECT } from "../constants/action-types";
 
   export function addProject(payload) {
       return {type: ADD_PROJECT, payload}
+  }
+
+  export function editProjectTitle(payload) {
+      return ({type: EDIT_PROJ_TITLE, payload})
+  }
+
+  export function editProjectTempTitle(payload) {
+      return ({type: EDIT_PROJ_TEMP_TITLE, payload})
   }

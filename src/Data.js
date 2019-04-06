@@ -6,6 +6,8 @@ const Data = {
         '1': {
             id: '1',
             title: 'New Project',
+            editTitle: false,
+            tempProjTitle: '',
             data: {
                 todo: {
                     '1': {

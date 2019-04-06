@@ -1,4 +1,4 @@
-import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT } from "../constants/action-types";
+import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
@@ -268,6 +268,26 @@ function rootReducer(state = initialState, action) {
                 }
             }
         })
+   } else if (action.type === EDIT_PROJ_TITLE) {
+     return Object.assign({}, state, {
+       ...state, 
+       projects: {
+         ...state.projects,
+         [state.projects.active]: {
+           ...state.projects[state.projects.active].title = state.projects[state.projects.active].tempProjTitle
+         }
+       }
+     })
+   } else if (action.type === EDIT_PROJ_TEMP_TITLE) {
+     return Object.assign({}, state, {
+      ...state, 
+      projects: {
+        ...state.projects,
+        [state.projects.active]: {
+          ...state.projects[state.projects.active].tempProjTitle = action.payload
+        }
+      }
+     })
    }
   return state;
 }

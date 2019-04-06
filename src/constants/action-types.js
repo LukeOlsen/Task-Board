@@ -8,3 +8,5 @@ export const EDIT_TEMP_DATE = "EDIT_TEMP_DATE";
 export const COMPLETE_TODO = "COMPLETE_TODO";
 export const SET_PROJECT = "SET_PROJECT";
 export const ADD_PROJECT = "ADD_PROJECT";
+export const EDIT_PROJ_TITLE = "EDIT_PROJ_TITLE";
+export const EDIT_PROJ_TEMP_TITLE = "EDIT_PROJ_TEMP_TITLE";
