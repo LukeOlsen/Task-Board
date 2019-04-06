@@ -269,12 +269,14 @@ function rootReducer(state = initialState, action) {
             }
         })
    } else if (action.type === EDIT_PROJ_TITLE) {
+     alert("WORK")
      return Object.assign({}, state, {
        ...state, 
        projects: {
          ...state.projects,
          [state.projects.active]: {
-           ...state.projects[state.projects.active].title = state.projects[state.projects.active].tempProjTitle
+           ...state.projects[state.projects.active],
+           title: state.projects[state.projects.active].tempProjTitle
          }
        }
      })
@@ -284,7 +286,8 @@ function rootReducer(state = initialState, action) {
       projects: {
         ...state.projects,
         [state.projects.active]: {
-          ...state.projects[state.projects.active].tempProjTitle = action.payload
+          ...state.projects[state.projects.active],
+          tempProjTitle: action.payload
         }
       }
      })

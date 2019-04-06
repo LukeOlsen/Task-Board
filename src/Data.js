@@ -7,7 +7,7 @@ const Data = {
             id: '1',
             title: 'New Project',
             editTitle: false,
-            tempProjTitle: '',
+            tempProjTitle: 'New Project',
             data: {
                 todo: {
                     '1': {
