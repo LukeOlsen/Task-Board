@@ -230,25 +230,20 @@ function rootReducer(state = initialState, action) {
                 [temp]: {
                     id: `${temp}`,
                     title: 'Temp Title',
-                    todo: {
-                        '1': {
-                            id: '1',
-                            title: 'test title',
-                            description: 'test description',
-                            dueDate: '',
-                            complete: false
-                        }
+                    data: {
+                      todo: {
+                        
                     },
                     columns: {
                         'col-1': {
                             id: 'col-1',
                             title: 'To Do',
-                            todoId: ['1', '2']
+                            todoId: []
                         },
                         'col-2': {
                             id: 'col-2',
                             title: 'In Progress',
-                            todoId: ['3']
+                            todoId: []
                         },
                         'col-3': {
                             id: 'col-3',
@@ -262,13 +257,14 @@ function rootReducer(state = initialState, action) {
                         }
                     },
                     columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
-                    count: 3,
+                    count: 0,
                     showPop: false,
                     edit: false,
                     currentEditId: '',
                     tempTitle: '',
                     tempDate: '',
                     tempDescription: ''
+                    }
                 }
             }
         })

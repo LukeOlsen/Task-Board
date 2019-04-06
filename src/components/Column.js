@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => {
 const Column = (props) => {
     return (
         <div className="to-Do-Container">
-        <h1>{props.column.title}</h1>
+        <h2>{props.column.title}</h2>
         <Droppable droppableId={props.column.id}>
             {(provided, snapshot) => (
                 <div

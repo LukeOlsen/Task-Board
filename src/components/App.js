@@ -58,10 +58,11 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <div className="header">
-        <h1>Test</h1>
+        <h1>{this.props.projects[this.props.projects.active].title}</h1>
         <Button variant="contained" color="primary" onClick={this.togglePop}>New Task</Button>
         </div>
         <Sidebar />
