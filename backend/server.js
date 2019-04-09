@@ -17,6 +17,20 @@ conn.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
+const dataRoutes = express.Router();
+
+app.use('/data', dataRoutes);
+
+dataRoute.route('/').get(function(req, res) {
+    Data.find(function(err, data) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.json(data);
+        }
+    })
+})
+
 
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
