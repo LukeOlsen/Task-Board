@@ -1,5 +1,6 @@
 const Data = {
     user: 'Luke',
+    userId: '123',
     projects: {
         active: '1',
         numberOfProjects: 2,

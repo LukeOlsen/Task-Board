@@ -5,10 +5,10 @@ let Data = new Schema({
     userId: {type: String},
     user: {type: String},
     projects: {
-        active: {type: String},
+        active: {type: Number},
         numberOfProjects: {type: Number},
         projectFormat: {
-            id: {type: String},
+            id: {type: Number},
             title: {type: String},
             editTitle: {type: Boolean},
             tempProjTitle: {type: String},
