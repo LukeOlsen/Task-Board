@@ -6,6 +6,8 @@ const mongoose = require('Mongoose');
 const PORT = 4000;
 const dataRoutes = express.Router();
 const userRoutes = express.Router();
+const MongoClient = require('mongodb').MongoClient;
+const client = new MongoClient(process.env.DB_ROUTE, {useNewUrlParser: true})
 require('dotenv').config()
 
 app.use(cors());
@@ -15,16 +17,21 @@ app.use(bodyParser.json());
 let Data = require('./data.model');
 let User = require('./user.model');
 
-
-mongoose.connect(process.env.DB_ROUTE, {
-    useNewUrlParser: true,
-    dbName: 'Task-Data'
-});
-const conn = mongoose.connection
-
-conn.once('open', function() {
-    console.log("MongoDB database connection established successfully");
+client.connect(err => {
+    const collection = client.db('Task-Data').collection('User')
+    console.log("connected to DB")
 })
+
+
+// mongoose.connect(process.env.DB_ROUTE, {
+//     useNewUrlParser: true,
+//     dbName: 'Task-Data'
+// });
+// const conn = mongoose.connection
+
+// conn.once('open', function() {
+//     console.log("MongoDB database connection established successfully");
+// })
 
 app.get('/', function(req, res) {
     console.log("WELCOME!")
@@ -62,6 +69,15 @@ dataRoutes.route('/add').post(function(req, res) {
 })
 
 userRoutes.route('/add').post(function(req, res) {
+
+    client.connect(err => {
+        const collection = client.db('Task-Data').collection('User')
+        console.log(collection)
+
+
+
+
+    })
     console.log(req.body);
     const {userName, userId} = req.body;
     console.log(userName)
