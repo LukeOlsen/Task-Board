@@ -6,9 +6,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('Mongoose');
 const PORT = 4000;
-const dataRoutes = express.Router();
 const userRoutes = express.Router();
+const dataRoutes = express.Router();
 const MongoClient = require('mongodb').MongoClient;
+import Data from './initialData.js';
 require('dotenv').config()
 
 
@@ -27,12 +28,22 @@ client.connect(err => {
         console.log("WELCOME!")
         res.json({"type": "you did it"})
     })
+
+    dataRoutes.route('/first').post(function(req, res){
+        let initialData = Data;
+        db.collection('Data').save(initialData)
+                             .then(data => {
+                                 res.status(200).json({"data": "data added successfully"})
+                             })
+                             .catch(err => {
+                                 res.status(400).send('adding new data failed')
+                             })
+    });
     
     userRoutes.route('/add').post(function(req, res) {
         console.log(req.body);
-        console.log(userName)
         
-        user.save(req.body)
+        user.insertOne(req.body)
             .then(data => {
                 res.status(200).json({'user': 'user added successfully!'})
             })
@@ -50,6 +61,7 @@ client.connect(err => {
     })
     
     app.use('/user', userRoutes);
+    app.use('/data', dataRoutes);
     
     app.listen(PORT, function() {
         console.log("Server is running on Port: " + PORT);
