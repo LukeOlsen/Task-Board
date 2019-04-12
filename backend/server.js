@@ -9,7 +9,7 @@ const PORT = 4000;
 const userRoutes = express.Router();
 const dataRoutes = express.Router();
 const MongoClient = require('mongodb').MongoClient;
-import Data from './initialData.js';
+// import Data from '../initialData.js';
 require('dotenv').config()
 
 
@@ -30,8 +30,136 @@ client.connect(err => {
     })
 
     dataRoutes.route('/first').post(function(req, res){
-        let initialData = Data;
-        db.collection('Data').save(initialData)
+        let initialData = {
+            user: 'Luke',
+            userId: '123',
+            projects: {
+                active: '1',
+                numberOfProjects: 2,
+                '1': {
+                    id: '1',
+                    title: 'New Project',
+                    editTitle: false,
+                    tempProjTitle: 'New Project',
+                    data: {
+                        todo: {
+                            '1': {
+                                 id: '1',
+                                 title: 'test title',
+                                 description: 'test description',
+                                 dueDate: '',
+                                 complete: false
+                             },
+                             '2': {
+                                 id: '2',
+                                 title: 'do more things',
+                                 description: 'do even more things',
+                                 dueDate: '',
+                                 complete: false
+                             },
+                             '3': {
+                                 id: '3',
+                                 title: 'finish things',
+                                 description: 'stop doing things',
+                                 dueDate: '',
+                                 complete: false
+                             }
+                         },
+                         columns: {
+                             'col-1': {
+                                 id: 'col-1',
+                                 title: 'To Do',
+                                 todoId: ['1', '2']
+                             },
+                             'col-2': {
+                                 id: 'col-2',
+                                 title: 'In Progress',
+                                 todoId: ['3']
+                             },
+                             'col-3': {
+                                 id: 'col-3',
+                                 title: 'Awaiting Approval',
+                                 todoId: []
+                             },
+                             'col-4': {
+                                 id: 'col-4',
+                                 title: 'Complete',
+                                 todoId: []
+                             }
+                         },
+                         columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
+                         count: 3,
+                         showPop: false,
+                         edit: false,
+                         currentEditId: '',
+                         tempTitle: '',
+                         tempDate: '',
+                         tempDescription: ''
+                    }
+                },
+                '2': {
+                    id: '2',
+                    title: 'Second Project',
+                    data: {
+                        todo: {
+                            '1': {
+                                 id: '1',
+                                 title: 'You have accessed the second project',
+                                 description: 'test description',
+                                 dueDate: '',
+                                 complete: false
+                             },
+                             '2': {
+                                 id: '2',
+                                 title: 'great job',
+                                 description: 'do even more things',
+                                 dueDate: '',
+                                 complete: false
+                             },
+                             '3': {
+                                 id: '3',
+                                 title: 'now do it again',
+                                 description: 'stop doing things',
+                                 dueDate: '',
+                                 complete: false
+                             }
+                         },
+                         columns: {
+                             'col-1': {
+                                 id: 'col-1',
+                                 title: 'To Do',
+                                 todoId: ['1', '2']
+                             },
+                             'col-2': {
+                                 id: 'col-2',
+                                 title: 'In Progress',
+                                 todoId: ['3']
+                             },
+                             'col-3': {
+                                 id: 'col-3',
+                                 title: 'Awaiting Approval',
+                                 todoId: []
+                             },
+                             'col-4': {
+                                 id: 'col-4',
+                                 title: 'Complete',
+                                 todoId: []
+                             }
+                         },
+                         columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
+                         count: 3,
+                         showPop: false,
+                         edit: false,
+                         currentEditId: '',
+                         tempTitle: '',
+                         tempDate: '',
+                         tempDescription: ''
+                    }
+                }
+            }
+        }
+        console.log(initialData)
+        db.collection('Data').insertOne(initialData)
                              .then(data => {
                                  res.status(200).json({"data": "data added successfully"})
                              })
@@ -39,6 +167,14 @@ client.connect(err => {
                                  res.status(400).send('adding new data failed')
                              })
     });
+
+    dataRoutes.route('/pull').get(function(req, res) {
+        db.collection('Data').findOne({}).then(data => {
+            res.send(data)
+        }).catch(err => {
+            res.status(400).send('big fail time')
+        })
+    })
     
     userRoutes.route('/add').post(function(req, res) {
         console.log(req.body);
