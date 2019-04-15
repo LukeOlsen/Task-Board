@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Popup from './PopUp';
-import Sidebar from './Sidebar';
-import Board from './Board'
-import { connect } from "react-redux"; 
-import { togglePopUp, moveToDo, editProjectTempTitle, editProjectTitle } from '../actions/index';
+import Column from './Column';
+import { connect } from "react-redux";
+import {DragDropContext} from 'react-beautiful-dnd'; 
+import Button from '@material-ui/core/Button';
+import { moveToDo, editProjectTempTitle, editProjectTitle, togglePopUp } from '../actions/index';
+import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import '../App.css';
 
@@ -28,7 +30,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-class App extends Component {
+class Board extends Component {
   constructor(props) {
     super(props)
 
@@ -36,6 +38,8 @@ class App extends Component {
       tempProjTitle: '',
       showTempProjTitle: false
     }
+
+    this.onDragEnd = this.onDragEnd.bind(this);
     this.togglePop = this.togglePop.bind(this);
     this.toggleTempTitle = this.toggleTempTitle.bind(this);
   }
@@ -72,15 +76,40 @@ class App extends Component {
     console.log(this.props)
     return (
       <div>
-        <Sidebar />
-        <Board />
-        {this.props.showPop ?
-        <Popup /> : null}
+        <div className="header">
+        {this.state.showTempProjTitle ? 
+          <form>
+            <TextField
+              variant="outlined"
+              value={this.props.tempProjTitle}
+              onChange={event => this.props.editProjectTempTitle(event.target.value)}
+            />
+            <Button size="small" onClick={() => {
+              this.props.editProjectTitle();
+              this.toggleTempTitle();
+              }}>Change Title</Button>
+          </form>
+          :
+          <h1 onClick={this.toggleTempTitle}>{this.props.projects[this.props.projects.active].title}</h1>
+          }
+        <Button variant="contained" color="primary" onClick={this.togglePop}>New Task</Button>
+        </div>
+        <div className="mainContainer">
+        {this.props ? 
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            {this.props.columnsort.map(columnId => {
+              const column = this.props.columns[columnId];
+              const todos = column.todoId.map(todoId => this.props.todo[todoId]);
+              return <Column key={column.id} column={column} todos={todos} />;
+            })}
+          </DragDropContext>
+        : 
+          <CircularProgress />
+        }
+        </div>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
