@@ -2,12 +2,10 @@ import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, C
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
+import axios from 'axios';
 
 
-const initialState = Data;
-
-
-function rootReducer(state = initialState, action) {
+function rootReducer(state = Data, action) {
    if (action.type === TOGGLE_POPUP) {
       console.log(action.payload.test)
       let temp = state.projects.active;
