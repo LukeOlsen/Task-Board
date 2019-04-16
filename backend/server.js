@@ -99,7 +99,7 @@ client.connect(err => {
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "localhost/auth/google/callback"
+        callbackURL: "/auth/google/redirect"
       },
       function(accessToken, refreshToken, profile, cb) {
         User.findOne({ googleId: profile.id }).then(user => {
@@ -119,10 +119,10 @@ client.connect(err => {
       }
     ));
 
-    app.get('/auth/google',
+    app.get('/google',
     passport.authenticate('google', { scope: ['profile'] }));
 
-    app.get('/auth/google/callback', 
+    app.get('/auth/google/redirect', 
     passport.authenticate('google', { failureRedirect: '/login' }),
     function(req, res) {
         // Successful authentication, redirect home.
