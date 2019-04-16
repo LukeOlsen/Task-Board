@@ -24,9 +24,6 @@ class App extends Component {
   componentDidMount() {
     axios.get('/data/pull')
         .then(response => {
-            console.log(response)
-            console.log(response)
-            console.log(response)
             this.setState(response.data);
         })
         .catch(function (error){
@@ -36,7 +33,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <Route exact path='/' component={LandingPage} />

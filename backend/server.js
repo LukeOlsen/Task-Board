@@ -12,6 +12,15 @@ const MongoClient = require('mongodb').MongoClient;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config()
 
+app.use(cors());
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session())
+
 const newBoard = {
     user: '',
     userId: '',
@@ -69,9 +78,6 @@ const newBoard = {
     }
 }
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 const client = new MongoClient(process.env.DB_ROUTE, {useNewUrlParser: true})
 
 client.connect(err => {
@@ -81,13 +87,6 @@ client.connect(err => {
     const user = db.collection('User')
     console.log("connected to DB")
 
-    passport.serializeUser(function(user, cb) {
-        cb(null, user);
-      });
-      
-      passport.deserializeUser(function(obj, cb) {
-        cb(null, obj);
-      });
       
 
 
@@ -99,7 +98,7 @@ client.connect(err => {
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "/auth/google/redirect"
+        callbackURL: "http://localhost:4000/auth/google/redirect"
       },
       function(accessToken, refreshToken, profile, cb) {
         User.findOne({ googleId: profile.id }).then(user => {
