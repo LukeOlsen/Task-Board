@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Popup from './PopUp';
-import Sidebar from './Sidebar';
-import Board from './Board'
+import LandingPage from './LandingPage';
+import Main from './Main';
 import { connect } from "react-redux"; 
-import { togglePopUp, moveToDo, editProjectTempTitle, editProjectTitle } from '../actions/index';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import axios from 'axios';
 import '../App.css';
 
@@ -20,16 +19,15 @@ const mapDispatchToProps = dispatch => {
 
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-  }
+  
 
   componentDidMount() {
-    axios.get('http://localhost:4000/data/pull')
+    axios.get('/data/pull')
         .then(response => {
             console.log(response)
-            this.setState(response);
+            console.log(response)
+            console.log(response)
+            this.setState(response.data);
         })
         .catch(function (error){
             console.log(error);
@@ -37,18 +35,12 @@ class App extends Component {
   }
 
 
-  toggleTempTitle = () => {
-    this.setState({showTempProjTitle: !this.state.showTempProjTitle})
-  }
-
   render() {
     console.log(this.props)
     return (
       <div>
-        <Sidebar />
-        <Board />
-        {this.props.showPop ?
-        <Popup /> : null}
+        <Route exact path='/' component={LandingPage} />
+        <Route path='/main' component={Main} />
       </div>
     );
   }

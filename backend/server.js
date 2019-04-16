@@ -119,7 +119,7 @@ client.connect(err => {
       }
     ));
 
-    app.get('/google',
+    app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile'] }));
 
     app.get('/auth/google/redirect', 
