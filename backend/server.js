@@ -84,7 +84,7 @@ client.connect(err => {
     const db = client.db(process.env.DB_NAME)
     const users = db.collection('Users');
     const boards = db.collection('Boards');
-    const user = db.collection('User')
+    const User = db.collection('User')
     console.log("connected to DB")
 
       
@@ -92,13 +92,13 @@ client.connect(err => {
 
     app.get('/', function(req, res) {
         console.log("WELCOME!")
-        res.json({"type": "you did it"})
+        res.redirect('http://localhost:3000/Landing')
     })
     
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:4000/auth/google/redirect"
+        callbackURL: "/auth/google/redirect"
       },
       function(accessToken, refreshToken, profile, cb) {
         User.findOne({ googleId: profile.id }).then(user => {
@@ -110,9 +110,9 @@ client.connect(err => {
                     name: profile.displayName,
                     imageUrl: profile._json.profile_image_url
                 };
-                users.insertOne(newUser).then(() => {
-                    boards.insertOne()
-                })
+                console.log(newUser)
+                User.insertOne(newUser)
+                return
             }
         })
       }
@@ -122,10 +122,11 @@ client.connect(err => {
     passport.authenticate('google', { scope: ['profile'] }));
 
     app.get('/auth/google/redirect', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { successRedirect: '/',failureRedirect: '/' }),
     function(req, res) {
         // Successful authentication, redirect home.
-        res.redirect('/');
+        console.log("SUCCESS")
+        res.redirect('http://localhost:3000/main');
     });
 
     

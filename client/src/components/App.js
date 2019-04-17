@@ -35,7 +35,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/Landing' component={LandingPage} />
         <Route path='/main' component={Main} />
       </div>
     );
