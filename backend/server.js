@@ -87,8 +87,13 @@ client.connect(err => {
     const User = db.collection('User')
     console.log("connected to DB")
 
+    passport.serializeUser(function(user, done) {
+        done(null, user);
+      });
       
-
+    passport.deserializeUser(function(user, done) {
+       done(null, user);
+     });
 
     app.get('/', function(req, res) {
         console.log("WELCOME!")
@@ -112,7 +117,7 @@ client.connect(err => {
                 };
                 console.log(newUser)
                 User.insertOne(newUser)
-                return
+                cb(null, newUser)
             }
         })
       }
