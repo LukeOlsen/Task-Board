@@ -6,7 +6,7 @@ import Data from '../Data';
 import axios from 'axios';
 
 
-function rootReducer(state = Data, action) {
+function rootReducer(state = {hasUser: false}, action) {
   console.log(state)
    if (action.type === TOGGLE_POPUP) {
       console.log(action.payload.test)
@@ -291,10 +291,9 @@ function rootReducer(state = Data, action) {
       }
      })
    } else if (action.type === SET_GUEST) {
-     return Object.assign({}, state, {
-       ...state, 
-       user: 'Guest'
-     })
+     let newState = Data;
+     newState.hasUser = true
+     return newState
    }
   return state;
 }

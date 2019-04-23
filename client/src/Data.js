@@ -1,4 +1,5 @@
 const Data = {
+    hasUser: true,
     user: '',
     userId: '',
     projects: {
