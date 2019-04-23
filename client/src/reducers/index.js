@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 function rootReducer(state = Data, action) {
+  console.log(state)
    if (action.type === TOGGLE_POPUP) {
       console.log(action.payload.test)
       let temp = state.projects.active;
