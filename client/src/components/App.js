@@ -36,7 +36,7 @@ class App extends Component {
     return (
       <div>
         <Route exact path='/Landing' component={LandingPage} />
-        <Route path='/main' component={Main} />
+        <Route exact path='/main' component={Main} />
       </div>
     );
   }

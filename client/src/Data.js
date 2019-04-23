@@ -3,7 +3,7 @@ const Data = {
     userId: '',
     projects: {
         active: '1',
-        numberOfProjects: 2,
+        numberOfProjects: 1,
         '1': {
             id: '1',
             title: 'New Project',
@@ -42,7 +42,7 @@ const Data = {
                      }
                  },
                  columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
-                 count: 3,
+                 count: 1,
                  showPop: false,
                  edit: false,
                  currentEditId: '',

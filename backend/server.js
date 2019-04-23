@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session())
 
-const newBoard = {
+const boardTemplate = {
     user: '',
     userId: '',
     projects: {
@@ -82,22 +82,33 @@ const client = new MongoClient(process.env.DB_ROUTE, {useNewUrlParser: true})
 
 client.connect(err => {
     const db = client.db(process.env.DB_NAME)
-    const users = db.collection('Users');
     const boards = db.collection('Boards');
     const User = db.collection('User')
     console.log("connected to DB")
 
     passport.serializeUser(function(user, done) {
+        console.log(user)
         done(null, user);
       });
       
     passport.deserializeUser(function(user, done) {
-       done(null, user);
+       // console.log(user)
+        // done(null, user);
+        User.findOne({googleId: user.googleId}).then(user => {
+            console.log("Deserializer:")
+            console.log(user)
+            done(null, user)
+        })
      });
 
     app.get('/', function(req, res) {
         console.log("WELCOME!")
-        res.redirect('http://localhost:3000/Landing')
+        console.log(req.session.passport.user)
+        if (req.session.passport.user) {
+            res.redirect('http://localhost:3000/Main')
+        } else {
+            res.redirect('http://localhost:3000/Landing')
+        }
     })
     
     passport.use(new GoogleStrategy({
@@ -108,15 +119,21 @@ client.connect(err => {
       function(accessToken, refreshToken, profile, cb) {
         User.findOne({ googleId: profile.id }).then(user => {
             if (user) {
+                console.log("Passport use:")
+                console.log(user)
                 cb(null, user)
             } else {
                 const newUser = {
-                    _id: profile.id,
+                    googleId: profile.id,
                     name: profile.displayName,
                     imageUrl: profile._json.profile_image_url
                 };
                 console.log(newUser)
                 User.insertOne(newUser)
+                let newBoard = boardTemplate;
+                newBoard.user = newUser.name;
+                newBoard.userId = newUser._id;
+                boards.insertOne(newBoard);
                 cb(null, newUser)
             }
         })
@@ -127,11 +144,12 @@ client.connect(err => {
     passport.authenticate('google', { scope: ['profile'] }));
 
     app.get('/auth/google/redirect', 
-    passport.authenticate('google', { successRedirect: '/',failureRedirect: '/' }),
+    passport.authenticate('google', { successRedirect: '/', failureRedirect: '/' }),
     function(req, res) {
         // Successful authentication, redirect home.
         console.log("SUCCESS")
-        res.redirect('http://localhost:3000/main');
+        console.log(user)
+        res.redirect('http://localhost:3000/');
     });
 
     
