@@ -1,4 +1,7 @@
 import React from 'react';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
 import { connect } from 'react-redux';
 import { editCard } from '../actions/index';
 import {Draggable} from 'react-beautiful-dnd';
@@ -26,22 +29,30 @@ const ToDo = (props) => {
             >
                 {provided =>(
                     props.todo.complete ?
-                        <div className="toDoCard complete"
+                        <div className=""
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                         onClick={() => props.editCard(props.todo)}
                         >
-                            <p>{props.todo.title}</p>
+                            <Card className="toDoCard complete">
+                                <CardContent>
+                                    <Typography>{props.todo.title}</Typography>
+                                </CardContent>
+                            </Card>
                         </div>
                     : 
-                        <div className="toDoCard"
+                        <div className=""
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                         onClick={() => props.editCard(props.todo)}
                         >
-                            <p>{props.todo.title}</p>
+                            <Card className="toDoCard">
+                                <CardContent>
+                                    <Typography>{props.todo.title}</Typography>
+                                </CardContent>
+                            </Card>
                         </div>
                 )}
             </Draggable>

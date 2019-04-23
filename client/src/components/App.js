@@ -36,8 +36,12 @@ class App extends Component {
     return (
       <div>
         <Route exact path='/Landing' component={LandingPage} />
+<<<<<<< HEAD
         <Route exact path='/board/user' component={Main} />
         <Route exact path='/board/guest' component={Main} />
+=======
+        <Route exact path='/main' component={Main} />
+>>>>>>> 172d6798361d1bab0e6917a2fa8ad6793821444b
       </div>
     );
   }
