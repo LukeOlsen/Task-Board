@@ -1,6 +1,7 @@
 import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
+import { SET_GUEST} from "../constants/action-types";
 import Data from '../Data';
 import axios from 'axios';
 
@@ -287,6 +288,11 @@ function rootReducer(state = Data, action) {
           tempProjTitle: action.payload
         }
       }
+     })
+   } else if (action.type === SET_GUEST) {
+     return Object.assign({}, state, {
+       ...state, 
+       user: 'Guest'
      })
    }
   return state;

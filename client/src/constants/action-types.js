@@ -10,3 +10,6 @@ export const SET_PROJECT = "SET_PROJECT";
 export const ADD_PROJECT = "ADD_PROJECT";
 export const EDIT_PROJ_TITLE = "EDIT_PROJ_TITLE";
 export const EDIT_PROJ_TEMP_TITLE = "EDIT_PROJ_TEMP_TITLE";
+export const FETCH_BOARD = "FETCH_BOARD";
+export const UPDATE_BOARD = "UPDATE_BOARD";
+export const SET_GUEST = "SET_GUEST"
