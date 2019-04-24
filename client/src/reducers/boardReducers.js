@@ -2,13 +2,11 @@ import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, C
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
-import axios from 'axios';
+import Axios from 'axios';
 
 
 export default function boardReducer(state = Data, action) {
-  console.log(state)
    if (action.type === TOGGLE_POPUP) {
-      console.log(action.payload.test)
       let temp = state.projects.active;
       return Object.assign({}, state, {
         ...state, 
@@ -27,7 +25,6 @@ export default function boardReducer(state = Data, action) {
         }
       });
   } else if (action.type === MOVE_TODO) {
-      console.log(action.payload)
       if (action.payload.begin === action.payload.end){
         const newToDoIds = Array.from(action.payload.begin.todoId);
         newToDoIds.splice(action.payload.source.index, 1);
@@ -36,7 +33,6 @@ export default function boardReducer(state = Data, action) {
           ...action.payload.begin,
           todoId: newToDoIds,
         };
-        console.log(newColumn)
         return Object.assign({}, state,  {
             ...state, 
             projects: {
@@ -61,7 +57,6 @@ export default function boardReducer(state = Data, action) {
             ...action.payload.begin,
             todoId: beginToDoIds
           }
-          console.log(newBegin)
           const endToDoIds = Array.from(action.payload.end.todoId);
           endToDoIds.splice(action.payload.destination.index, 0, action.payload.draggableId);
           const newEnd = {
@@ -107,12 +102,10 @@ export default function boardReducer(state = Data, action) {
         }
       })
   } else if (action.type === ADD_TODO) {
-    console.log(state)
     if (state.projects[state.projects.active].data.edit === false) {
             if (state.tempTitle !== '' && state.tempTitle !== null) {
               let r = state.projects[state.projects.active].data.count+1;
-
-              return Object.assign({}, state, {
+              let newState =  Object.assign({}, state, {
                 ...state, 
                 projects: {
                     ...state.projects,
@@ -146,13 +139,13 @@ export default function boardReducer(state = Data, action) {
                     }
                 }
               })
+
+              return newState  
             } else {
               alert("Please enter a title");
             }
           } else if (state.projects[state.projects.active].data.edit === true) {
             let newState = state;
-            console.log(newState.projects[state.projects.active].data)
-            console.log(newState.projects[state.projects.active].data.todo)
             newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].title = newState.projects[state.projects.active].data.tempTitle;
             newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].description = newState.projects[state.projects.active].data.tempDescription;
             newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].date = newState.projects[state.projects.active].data.tempDate;
@@ -161,7 +154,7 @@ export default function boardReducer(state = Data, action) {
             newState.projects[state.projects.active].data.tempTitle = '';
             newState.projects[state.projects.active].data.edit = false;
             newState.projects[state.projects.active].data.currentEditId = '';
-            newState.projects[state.projects.active].data.showPop = false;
+            newState.projects[state.projects.active].data.showPop = false; 
             return Object.assign({}, newState)
           }
   } else if (action.type === EDIT_TEMP_TITLE) {
@@ -209,7 +202,6 @@ export default function boardReducer(state = Data, action) {
   } else if (action.type === COMPLETE_TODO) {
       let newState = state;
       newState.projects[state.projects.active].data.todo[state.projects[state.projects.active].data.currentEditId].complete = true;
-      console.log(newState);
       return newState;
   } else if (action.type === SET_PROJECT) {
       return Object.assign({}, state, {
@@ -290,13 +282,11 @@ export default function boardReducer(state = Data, action) {
       }
      })
    } else if (action.type === FETCH_BOARD_BEGIN) {
-       alert("FETCH BEGIN")
        return Object.assign({}, state, {
            ...state, 
            loading: true
        })
    } else if (action.type === FETCH_BOARD_SUCCESS) {
-       alert("FETCH SUCCESS")
         return action.payload
    }
   return state;

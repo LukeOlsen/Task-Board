@@ -26,7 +26,7 @@ const boardTemplate = {
     userId: '',
     projects: {
         active: '1',
-        numberOfProjects: 2,
+        numberOfProjects: 1,
         '1': {
             id: '1',
             title: 'New Project',
@@ -65,7 +65,7 @@ const boardTemplate = {
                      }
                  },
                  columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
-                 count: 3,
+                 count: 1,
                  showPop: false,
                  edit: false,
                  currentEditId: '',
@@ -167,9 +167,22 @@ client.connect(err => {
     dataRoutes.route('/pull').get(function(req, res) {
         console.log(req.session.passport.user.googleId)
         db.collection('Boards').findOne({userId: req.session.passport.user.googleId}).then(data => {
+            console.log(data)
             res.send(data)
         }).catch(err => {
             res.status(400).send('big fail time')
+        })
+    })
+
+    dataRoutes.route('/update').post(function(req, res){
+        console.log(req.body)
+        let updateData = req.body
+        db.collection('Boards').findOneAndReplace({userId: updateData.userId}, updateData, {upsert: true, returnNewDocument: true}).then(data => {
+            console.log("Update Data:")
+            console.log(data)
+            res.send(data)
+        }).catch(err => {
+            res.status(400).send("Unable to update board.")
         })
     })
     

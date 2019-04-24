@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editTempDate, editTempDescription, editTempTitle, togglePopUp, addToDo, completeToDo } from '../actions/index';
+import { editTempDate, editTempDescription, editTempTitle, togglePopUp, completeToDo } from '../actions/index';
+import { updateAddToDo } from '../actions/actionsAPI';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => {
     return {
-        tempTitle: state.projects[state.projects.active].data.tempTitle,
-        tempDate: state.projects[state.projects.active].data.tempDate,
-        tempDescription: state.projects[state.projects.active].data.tempDescription,
-        showPop: state.projects[state.projects.active].data.showPop
+        tempTitle: state.boardReducer.projects[state.boardReducer.projects.active].data.tempTitle,
+        tempDate: state.boardReducer.projects[state.boardReducer.projects.active].data.tempDate,
+        tempDescription: state.boardReducer.projects[state.boardReducer.projects.active].data.tempDescription,
+        showPop: state.boardReducer.projects[state.boardReducer.projects.active].data.showPop
     }
 }
 
@@ -19,7 +20,7 @@ const mapDispatchToProps = dispatch => {
         editTempTitle: title => dispatch(editTempTitle(title)),
         editTempDate: date => dispatch(editTempDate(date)),
         editTempDescription: desc => dispatch(editTempDescription(desc)),
-        addToDo: todo => dispatch(addToDo(todo)),
+        updateAddToDo: todo => dispatch(updateAddToDo(todo)),
         completeToDo: todo => dispatch(completeToDo(todo))
     }
 }
@@ -38,7 +39,6 @@ class Popup extends Component {
 
 
     render() {
-        console.log(this.props)
         return(
             <div className="popup">
                 <div className="pop_inner">
@@ -67,7 +67,7 @@ class Popup extends Component {
                             value={this.props.tempDate}
                             onChange={event => this.props.editTempDate(event.target.value)}
                         />
-                        <Button variant="contained" color="primary" onClick={event => this.props.addToDo()}>done</Button>
+                        <Button variant="contained" color="primary" onClick={event => this.props.updateAddToDo()}>done</Button>
                     </form>
                 </div>
             </div>

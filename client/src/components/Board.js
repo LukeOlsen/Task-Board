@@ -11,6 +11,8 @@ import '../App.css';
 
 const mapStateToProps = state => {
   return { 
+    userId: state.boardReducer.userId,
+    board: state.boardReducer,
     projects: state.boardReducer.projects,
     tempProjTitle: state.boardReducer.projects[state.boardReducer.projects.active].tempProjTitle,
     todo: state.boardReducer.projects[state.boardReducer.projects.active].data.todo,
@@ -73,7 +75,7 @@ class Board extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log("LOOK AT THIS BOARD RE-RENDER")
     return (
       <div>
         <div className="header">

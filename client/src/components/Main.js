@@ -3,15 +3,17 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import Popup from './PopUp';
-import { fetchBoard } from '../actions/index'
+import { fetchBoard } from '../actions/actionsAPI'
 import axios from 'axios';
 
 const mapStateToProps = state => {
   console.log(state)
   if (!state.boardReducer.loading) {
     return { 
+      board: state.boardReducer,
       hasUser: state.userReducer.hasUser,
-      showPop: state.boardReducer.projects[state.boardReducer.projects.active].data.showPop
+      showPop: state.boardReducer.projects[state.boardReducer.projects.active].data.showPop,
+      userId: state.boardReducer.userId
      };
     } else {
       return {
@@ -30,7 +32,7 @@ const mapStateToProps = state => {
 class Main extends Component {
 
   componentDidMount() {
-    this.props.fetchBoard()
+      this.props.fetchBoard()
   }
 
   render() {

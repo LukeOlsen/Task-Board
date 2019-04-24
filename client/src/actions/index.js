@@ -61,19 +61,6 @@ import Axios from "axios";
       return ({type: EDIT_PROJ_TEMP_TITLE, payload})
   }
 
-  export function fetchBoard() {
-      return dispatch => {
-          dispatch(fetchBoardBegin())
-          return Axios.get('/data/pull')
-            .then(res => res)
-            .then(json => {
-                console.log(json.data)
-                dispatch(fetchBoardSuccess(json.data))
-                return json.data
-            })
-      }
-  }
-
   export function updateBoard(payload) {
       return({type: UPDATE_BOARD, payload})
   }
