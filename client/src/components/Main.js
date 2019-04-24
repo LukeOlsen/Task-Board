@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import Popup from './PopUp';
+import axios from 'axios';
 
 const mapStateToProps = state => {
   if (state.hasUser) {
@@ -22,23 +23,35 @@ const mapStateToProps = state => {
     }
   }
 
-const Main = (props) => {
 
+class Main extends Component {
+
+  componentDidMount() {
+    axios.get('/data/pull')
+        .then(response => {
+            console.log(response)
+        })
+        .catch(function (error){
+            console.log(error);
+        }) 
+  }
+
+  render() {
     return (
         <div>
-          {props.hasUser ?
+          {this.props.hasUser ?
           <div>
             <Sidebar />
             <Board />
-            {props.showPop ?
+            {this.props.showPop ?
             <Popup /> : null}
           </div>
             : 
             <p>loading</p>
           }
-        </div>
-       
+        </div>     
     )
+   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

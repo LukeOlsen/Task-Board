@@ -10,13 +10,11 @@ import './App.css';
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
             <BrowserRouter>
                 <Switch>
                     <Route path="/" component={App} />
                 </Switch>
             </BrowserRouter>
-        </ConnectedRouter>
     </Provider>, 
     document.getElementById('root')
 );

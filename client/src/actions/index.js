@@ -69,3 +69,7 @@ import { UPDATE_BOARD } from "../constants/action-types";
   export function setGuest(payload) {
       return({type: SET_GUEST, payload})
   }
+
+  export function moveToGuestBoard(payload) {
+      return
+  }

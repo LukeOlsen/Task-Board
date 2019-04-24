@@ -165,8 +165,8 @@ client.connect(err => {
     });
 
     dataRoutes.route('/pull').get(function(req, res) {
-        db.collection('Data').findOne({}).then(data => {
-            res.send(data)
+        db.collection('Data').findOne({googleId: req.session.passport.user.googleId}).then(data => {
+            return data
         }).catch(err => {
             res.status(400).send('big fail time')
         })
