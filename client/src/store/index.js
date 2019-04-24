@@ -6,6 +6,6 @@ import { createBrowserHistory } from 'history'
 
 export const history = createBrowserHistory()
 
-const store = createStore(rootReducer, applyMiddleware(thunk, routerMiddleware(history)));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

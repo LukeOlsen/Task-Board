@@ -3,23 +3,26 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import Popup from './PopUp';
+import { fetchBoard } from '../actions/index'
 import axios from 'axios';
 
 const mapStateToProps = state => {
-  if (state.hasUser) {
+  console.log(state)
+  if (!state.boardReducer.loading) {
     return { 
-      hasUser: state.hasUser,
-      showPop: state.projects[state.projects.active].data.showPop
+      hasUser: state.userReducer.hasUser,
+      showPop: state.boardReducer.projects[state.boardReducer.projects.active].data.showPop
      };
     } else {
       return {
-        hasUser: state.hasUser
+        loading: state.boardReducer.loading
       }
     }
   };
 
   const mapDispatchToProps = dispatch => {
     return {
+      fetchBoard: a => dispatch(fetchBoard(a))
     }
   }
 
@@ -27,19 +30,14 @@ const mapStateToProps = state => {
 class Main extends Component {
 
   componentDidMount() {
-    axios.get('/data/pull')
-        .then(response => {
-            console.log(response)
-        })
-        .catch(function (error){
-            console.log(error);
-        }) 
+    this.props.fetchBoard()
   }
 
   render() {
+    console.log(this.props)
     return (
         <div>
-          {this.props.hasUser ?
+          {!this.props.loading ?
           <div>
             <Sidebar />
             <Board />

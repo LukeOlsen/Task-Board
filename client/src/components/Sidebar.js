@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => {
     return {
-        projects: state.projects,
-        user: state.user
+        projects: state.boardReducer.projects,
+        user: state.userReducer.user
     }
 }
 
@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const Sidebar = ({projects, users, setActiveProject, addProject}) => {
+const Sidebar = ({projects, user, setActiveProject, addProject}) => {
     console.log(projects)
     console.log(projects)
 

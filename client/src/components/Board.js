@@ -11,12 +11,12 @@ import '../App.css';
 
 const mapStateToProps = state => {
   return { 
-    projects: state.projects,
-    tempProjTitle: state.projects[state.projects.active].tempProjTitle,
-    todo: state.projects[state.projects.active].data.todo,
-    columns: state.projects[state.projects.active].data.columns,
-    showPop: state.projects[state.projects.active].data.showPop,
-    columnsort: state.projects[state.projects.active].data.columnsort
+    projects: state.boardReducer.projects,
+    tempProjTitle: state.boardReducer.projects[state.boardReducer.projects.active].tempProjTitle,
+    todo: state.boardReducer.projects[state.boardReducer.projects.active].data.todo,
+    columns: state.boardReducer.projects[state.boardReducer.projects.active].data.columns,
+    showPop: state.boardReducer.projects[state.boardReducer.projects.active].data.showPop,
+    columnsort: state.boardReducer.projects[state.boardReducer.projects.active].data.columnsort
    };
 };
 

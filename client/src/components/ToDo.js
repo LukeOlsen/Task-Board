@@ -8,8 +8,8 @@ import {Draggable} from 'react-beautiful-dnd';
 
 const mapStateToProps = state => {
     return {
-        showPop: state.projects[state.projects.active].data.showPop,
-        currentEditId: state.projects[state.projects.active].data.currentEditId
+        showPop: state.boardReducer.projects[state.boardReducer.projects.active].data.showPop,
+        currentEditId: state.boardReducer.projects[state.boardReducer.projects.active].data.currentEditId
     }
 }
 

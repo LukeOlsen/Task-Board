@@ -105,7 +105,7 @@ client.connect(err => {
         console.log("WELCOME!")
         console.log(req.session.passport.user)
         if (req.session.passport.user) {
-            res.redirect('http://localhost:3000/Main')
+            res.redirect('http://localhost:3000/board/user')
         } else {
             res.redirect('http://localhost:3000/Landing')
         }
@@ -165,8 +165,9 @@ client.connect(err => {
     });
 
     dataRoutes.route('/pull').get(function(req, res) {
-        db.collection('Data').findOne({googleId: req.session.passport.user.googleId}).then(data => {
-            return data
+        console.log(req.session.passport.user.googleId)
+        db.collection('Boards').findOne({userId: req.session.passport.user.googleId}).then(data => {
+            res.send(data)
         }).catch(err => {
             res.status(400).send('big fail time')
         })

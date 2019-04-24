@@ -1,7 +1,5 @@
 const Data = {
-    hasUser: true,
-    user: '',
-    userId: '',
+    loading: false,
     projects: {
         active: '1',
         numberOfProjects: 1,

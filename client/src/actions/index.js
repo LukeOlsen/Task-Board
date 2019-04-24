@@ -7,7 +7,10 @@ import { EDIT_TEMP_DESC } from "../constants/action-types";
 import { EDIT_TEMP_DATE } from "../constants/action-types";
 import { SET_PROJECT } from "../constants/action-types";
 import { FETCH_BOARD } from "../constants/action-types";
+import { FETCH_BOARD_BEGIN } from "../constants/action-types"
+import { FETCH_BOARD_SUCCESS } from "../constants/action-types";
 import { UPDATE_BOARD } from "../constants/action-types";
+import Axios from "axios";
 
 
   export function togglePopUp(payload) {
@@ -58,18 +61,37 @@ import { UPDATE_BOARD } from "../constants/action-types";
       return ({type: EDIT_PROJ_TEMP_TITLE, payload})
   }
 
-  export function fetchBoard(payload) {
-      return({type: FETCH_BOARD, payload})
+  export function fetchBoard() {
+      return dispatch => {
+          dispatch(fetchBoardBegin())
+          return Axios.get('/data/pull')
+            .then(res => res)
+            .then(json => {
+                console.log(json.data)
+                dispatch(fetchBoardSuccess(json.data))
+                return json.data
+            })
+      }
   }
 
   export function updateBoard(payload) {
       return({type: UPDATE_BOARD, payload})
   }
 
-  export function setGuest(payload) {
-      return({type: SET_GUEST, payload})
+  export function setGuest() {
+      return({type: SET_GUEST})
   }
 
   export function moveToGuestBoard(payload) {
       return
   }
+
+  export function fetchBoardBegin() {
+    return({type: FETCH_BOARD_BEGIN})
+  }
+
+  export function fetchBoardSuccess(payload) {
+    return({type: FETCH_BOARD_SUCCESS, payload})
+  }
+
+ 
