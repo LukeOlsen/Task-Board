@@ -1,8 +1,18 @@
-import { fetchBoardBegin } from './index';
+import { fetchBoardBegin, addProject, editProjectTitle, completeToDo } from './index';
 import { fetchBoardSuccess } from './index';
 import { addToDo } from './index';
 import { moveToDo } from './index';
 import Axios from 'axios';
+
+function sendBoardUpdateToDB(payload) {
+    Axios.post('http://localhost:4000/data/update', payload)
+    .then(res => {
+        console.log(res);
+    })
+    .catch(error => {
+        console.log(error.response)
+    })
+}
 
 export function fetchBoard() {
     return dispatch => {
@@ -22,13 +32,7 @@ export function updateAddToDo() {
         console.log("UPDATE ADD:")
         let tempState = getState()
         console.log(tempState.boardReducer)
-        Axios.post('http://localhost:4000/data/update', tempState.boardReducer)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
+        sendBoardUpdateToDB(tempState.boardReducer)
     }
 }
 
@@ -38,12 +42,32 @@ export function updateMoveToDo(payload) {
         console.log("UPDATE MOVE:")
         let tempState = getState()
         console.log(tempState.boardReducer)
-        Axios.post('http://localhost:4000/data/update', tempState.boardReducer)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
+        sendBoardUpdateToDB(tempState.boardReducer)
+    }
+}
+
+export function updateAddProject() {
+    return (dispatch, getState) => {
+        dispatch(addProject())
+        console.log("UPDATE ADD PROJECT:")
+        let tempState = getState()
+        console.log(tempState.boardReducer)
+        sendBoardUpdateToDB(tempState.boardReducer)
+    }
+}
+
+export function updateEditProjectTitle() {
+    return (dispatch, getState) => {
+        dispatch(editProjectTitle())
+        let tempState = getState()
+        sendBoardUpdateToDB(tempState.boardReducer)
+    }
+}
+
+export function updateCompleteTodo() {
+    return (dispatch, getState) => {
+        dispatch(completeToDo())
+        let tempState = getState()
+        sendBoardUpdateToDB(tempState.boardReducer)
     }
 }

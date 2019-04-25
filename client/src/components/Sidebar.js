@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setActiveProject, addProject } from '../actions/index';
+import { updateAddProject } from '../actions/actionsAPI';
 import Button from '@material-ui/core/Button';
 
 
@@ -14,19 +15,17 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setActiveProject: a => dispatch(setActiveProject(a)),
-        addProject: p => dispatch(addProject(p))
+        updateAddProject: p => dispatch(updateAddProject(p))
     }
 }
 
-const Sidebar = ({projects, user, setActiveProject, addProject}) => {
-    console.log(projects)
-    console.log(projects)
+const Sidebar = ({projects, user, setActiveProject, updateAddProject}) => {
 
     return (
         <div className="sidebar">
             <h4>PROJECTS</h4>
             <a href="http://localhost:4000/auth/google"> Sign In With Google</a>
-            <Button variant="contained" color="primary" onClick={() => addProject()}>New Project</Button>
+            <Button variant="contained" color="primary" onClick={event => updateAddProject()}>New Project</Button>
             {Object.keys(projects).map(d => {
                 return (
                     <div onClick={() => setActiveProject(projects[d].id)}>

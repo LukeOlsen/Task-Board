@@ -6,7 +6,6 @@ import Popup from './PopUp';
 import { fetchBoard } from '../actions/actionsAPI';
 
 const mapStateToProps = state => {
-  console.log(state)
   if (!state.boardReducer.loading) {
     return { 
       board: state.boardReducer,

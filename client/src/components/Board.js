@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
 import {  editProjectTempTitle, editProjectTitle, togglePopUp } from '../actions/index';
-import { updateMoveToDo } from '../actions/actionsAPI';
+import { updateMoveToDo, updateEditProjectTitle } from '../actions/actionsAPI';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import '../App.css';
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => {
     togglePop: pop => dispatch(togglePopUp(pop)),
     updateMoveToDo: todo => dispatch(updateMoveToDo(todo)),
     editProjectTempTitle: title => dispatch(editProjectTempTitle(title)),
-    editProjectTitle: title => dispatch(editProjectTitle(title))
+    updateEditProjectTitle: title => dispatch(updateEditProjectTitle(title))
   }
 }
 
@@ -75,7 +75,6 @@ class Board extends Component {
   }
 
   render() {
-    console.log("LOOK AT THIS BOARD RE-RENDER")
     return (
       <div>
         <div className="header">
@@ -87,7 +86,7 @@ class Board extends Component {
               onChange={event => this.props.editProjectTempTitle(event.target.value)}
             />
             <Button size="small" onClick={() => {
-              this.props.editProjectTitle();
+              this.props.updateEditProjectTitle();
               this.toggleTempTitle();
               }}>Change Title</Button>
           </form>

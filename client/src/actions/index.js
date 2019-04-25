@@ -49,8 +49,8 @@ import Axios from "axios";
       return {type: SET_PROJECT, payload}
   }
 
-  export function addProject(payload) {
-      return {type: ADD_PROJECT, payload}
+  export function addProject() {
+      return {type: ADD_PROJECT}
   }
 
   export function editProjectTitle(payload) {
