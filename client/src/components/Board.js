@@ -3,10 +3,10 @@ import Column from './Column';
 import { connect } from "react-redux";
 import {DragDropContext} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
-import { moveToDo, editProjectTempTitle, editProjectTitle, togglePopUp } from '../actions/index';
+import {  editProjectTempTitle, editProjectTitle, togglePopUp } from '../actions/index';
+import { updateMoveToDo } from '../actions/actionsAPI';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import axios from 'axios';
 import '../App.css';
 
 const mapStateToProps = state => {
@@ -25,7 +25,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     togglePop: pop => dispatch(togglePopUp(pop)),
-    moveToDo: todo => dispatch(moveToDo(todo)),
+    updateMoveToDo: todo => dispatch(updateMoveToDo(todo)),
     editProjectTempTitle: title => dispatch(editProjectTempTitle(title)),
     editProjectTitle: title => dispatch(editProjectTitle(title))
   }
@@ -62,7 +62,7 @@ class Board extends Component {
     const end = this.props.columns[destination.droppableId];
     let beginToDoIds = begin.todoId;
     let endToDoIds = end.todoId;
-    this.props.moveToDo({destination, begin, end, beginToDoIds, endToDoIds, draggableId, source})
+    this.props.updateMoveToDo({destination, begin, end, beginToDoIds, endToDoIds, draggableId, source})
   }
 
   togglePop = () => {
