@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import Popup from './PopUp';
-import { fetchBoard } from '../actions/actionsAPI'
-import axios from 'axios';
+import { fetchBoard } from '../actions/actionsAPI';
 
 const mapStateToProps = state => {
   console.log(state)

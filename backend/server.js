@@ -132,7 +132,7 @@ client.connect(err => {
                 User.insertOne(newUser)
                 let newBoard = boardTemplate;
                 newBoard.user = newUser.name;
-                newBoard.userId = newUser._id;
+                newBoard.userId = newUser.googleId;
                 boards.insertOne(newBoard);
                 cb(null, newUser)
             }
@@ -177,13 +177,27 @@ client.connect(err => {
     dataRoutes.route('/update').post(function(req, res){
         console.log(req.body)
         let updateData = req.body
-        db.collection('Boards').findOneAndReplace({userId: updateData.userId}, updateData, {upsert: true, returnNewDocument: true}).then(data => {
+        db.collection('Boards').findOneAndReplace({userId: updateData.userId}, 
+            {
+                userId: updateData.userId, 
+                user: updateData.user,
+                projects: updateData.projects
+            }, 
+            {returnNewDocument: true}
+            ).then(data => {
             console.log("Update Data:")
-            console.log(data)
-            res.send(data)
+            console.log(data.value)
+            res.send(data.value)
         }).catch(err => {
             res.status(400).send("Unable to update board.")
         })
+        // db.collection('Boards').findOne({userId: updateData.userId}).then(data => {
+        //     console.log(data)
+        //     console.log("success:")
+        //     console.log(data)
+        // }).catch(err => {
+        //     res.status(400).send("no good")
+        // })
     })
     
     userRoutes.route('/add').post(function(req, res) {
