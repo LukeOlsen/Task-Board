@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path='/Landing' component={LandingPage} />
+        <Route exact path='/' component={LandingPage} />
         <Route exact path='/board/user' component={Main} />
         <Route exact path='/board/guest' component={Main} />
       </div>
