@@ -1,0 +1,93 @@
+.welcomeBackground {
+    background-color: #1a1a1a;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0 auto;
+    color: #efefef;
+}
+
+.welcomeTitle {
+    margin: 0 auto;
+    padding: 0;
+    font-size: 80px;
+    color: #efefef;
+
+}
+
+.testBorder {
+    border: 2px solid white;
+}
+
+.mainWelcomeCard {
+    display: flex;
+    flex-direction: column;
+}
+
+.welcomeTextArea {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    height: 100%;
+    width: 100%;
+}
+
+.welcomeButtons {
+    padding-top: 20px;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0,40px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        transform: translate3d(0,40px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both
+}
+
+.animatedFadeInUp {
+    opacity: 0
+}
+
+.fadeInUp {
+    opacity: 0;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+}
+
+.animatedLonger {
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-fill-mode: both
+}
