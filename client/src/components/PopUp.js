@@ -42,33 +42,49 @@ class Popup extends Component {
         return(
             <div className="popup">
                 <div className="pop_inner">
-                <div className="completeSection">
-                    <i onClick={event => this.props.updateCompleteTodo()} className="material-icons">done</i>
-                </div>
-                <div className="popTop">
-                    <i onClick={this.togglePop} className="material-icons clear">clear</i>
-                </div>
-                    <form className="infoForm">
-                        <TextField 
-                            type="text"
-                            className="tempTitle"
-                            value={this.props.tempTitle}
-                            onChange={event => this.props.editTempTitle(event.target.value)}
-                        />
-                        <TextField
-                            type="text"
-                            className="tempDescription"
-                            value={this.props.tempDescription}
-                            onChange={event => this.props.editTempDescription(event.target.value)}
-                        />
-                        <TextField
-                            type="date"
-                            className="tempDate"
-                            value={this.props.tempDate}
-                            onChange={event => this.props.editTempDate(event.target.value)}
-                        />
-                        <Button variant="contained" color="primary" onClick={event => this.props.updateAddToDo()}>done</Button>
-                    </form>
+                    <div>
+                        <div className="popTop">
+                            <i onClick={this.togglePop} className="material-icons clear">clear</i>
+                        </div>
+                    </div>
+                    <div className="inputFieldArea">
+                        <form className="infoForm">
+                            <div className="textArea">
+                                <TextField 
+                                    type="text"
+                                    className="tempTitle"
+                                    value={this.props.tempTitle}
+                                    onChange={event => this.props.editTempTitle(event.target.value)}
+                                />
+                            </div>
+                            <div className="textArea">
+                                <TextField
+                                    type="date"
+                                    className="tempDate"
+                                    value={this.props.tempDate}
+                                    onChange={event => this.props.editTempDate(event.target.value)}
+                                />
+                            </div>
+                            <div className="textArea">
+                                <TextField
+                                    type="text"
+                                    className="tempDescription"
+                                    label="Notes"
+                                    multiline
+                                    variant="outlined"
+                                    rows="4"
+                                    value={this.props.tempDescription}
+                                    onChange={event => this.props.editTempDescription(event.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <Button variant="contained" color="primary" onClick={event => this.props.updateAddToDo()}>done</Button>
+                                <div className="completeSection">
+                                    <i onClick={event => this.props.updateCompleteTodo()} className="material-icons">done</i>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         )

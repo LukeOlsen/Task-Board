@@ -89,6 +89,7 @@ html, body {
 .clear {
     margin-right: 10px;
     margin: 10px;
+    color: black;
 }
 
 .clear:hover {
@@ -112,5 +113,18 @@ html, body {
 
 .complete {
     opacity: 0.3;
+}
+
+.tempDate {
+    width: 200px;
+}
+
+.textArea {
+    width: 100%;
+    padding-top: 20px;
+}
+
+.inputFieldArea {
+    width: 100%;
 }
 
