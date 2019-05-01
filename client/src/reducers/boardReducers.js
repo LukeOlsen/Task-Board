@@ -1,4 +1,4 @@
-import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE, FETCH_BOARD_BEGIN, FETCH_BOARD_SUCCESS } from "../constants/action-types";
+import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE, FETCH_BOARD_BEGIN, FETCH_BOARD_SUCCESS, DELETE_TODO } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
@@ -146,15 +146,16 @@ export default function boardReducer(state = Data, action) {
             }
           } else if (state.projects[state.projects.active].data.edit === true) {
             let newState = state;
-            newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].title = newState.projects[state.projects.active].data.tempTitle;
-            newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].description = newState.projects[state.projects.active].data.tempDescription;
-            newState.projects[state.projects.active].data.todo[newState.projects[state.projects.active].data.currentEditId].date = newState.projects[state.projects.active].data.tempDate;
-            newState.projects[state.projects.active].data.tempDate = '';
-            newState.projects[state.projects.active].data.tempDescription = '';
-            newState.projects[state.projects.active].data.tempTitle = '';
-            newState.projects[state.projects.active].data.edit = false;
-            newState.projects[state.projects.active].data.currentEditId = '';
-            newState.projects[state.projects.active].data.showPop = false; 
+            let activeProj = state.projects.active
+            newState.projects[activeProj].data.todo[newState.projects[activeProj].data.currentEditId].title = newState.projects[activeProj].data.tempTitle;
+            newState.projects[activeProj].data.todo[newState.projects[activeProj].data.currentEditId].description = newState.projects[activeProj].data.tempDescription;
+            newState.projects[activeProj].data.todo[newState.projects[activeProj].data.currentEditId].date = newState.projects[activeProj].data.tempDate;
+            newState.projects[activeProj].data.tempDate = '';
+            newState.projects[activeProj].data.tempDescription = '';
+            newState.projects[activeProj].data.tempTitle = '';
+            newState.projects[activeProj].data.edit = false;
+            newState.projects[activeProj].data.currentEditId = '';
+            newState.projects[activeProj].data.showPop = false; 
             return Object.assign({}, newState)
           }
   } else if (action.type === EDIT_TEMP_TITLE) {
@@ -288,6 +289,30 @@ export default function boardReducer(state = Data, action) {
        })
    } else if (action.type === FETCH_BOARD_SUCCESS) {
         return action.payload
+   } else if (action.type === DELETE_TODO) {
+       let newState = state;
+       console.log("HERE:")
+       console.log(newState.projects[newState.projects.active].data)
+       let currentTodo = newState.projects[newState.projects.active].data.currentEditId;
+       let currentProject = newState.projects.active;
+       console.log(newState.projects[currentProject].data.todo)
+       delete newState.projects[currentProject].data.todo[currentTodo]
+       for (var cols in newState.projects[currentProject].data.columns) {
+            for (var i = 0; i < newState.projects[currentProject].data.columns[cols].todoId.length; i++) {
+                if (currentTodo === newState.projects[currentProject].data.columns[cols].todoId[i]) {
+                    newState.projects[currentProject].data.columns[cols].todoId.splice(i, 1);
+                }
+            }
+       }
+       newState.projects[currentProject].data.showPop = false;
+       newState.projects[currentProject].data.edit = false;
+       newState.projects[currentProject].data.currentEditId = '';
+       newState.projects[currentProject].data.tempTitle = '';
+       newState.projects[currentProject].data.tempDate = '';
+       newState.projects[currentProject].data.tempDescription = '';
+       console.log("FINAL DELETE:")
+       console.log(newState)
+       return Object.assign({}, newState) 
    }
   return state;
 }

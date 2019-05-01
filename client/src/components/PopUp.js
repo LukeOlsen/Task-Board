@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editTempDate, editTempDescription, editTempTitle, togglePopUp } from '../actions/index';
-import { updateAddToDo, updateCompleteTodo } from '../actions/actionsAPI';
+import { updateAddToDo, updateCompleteTodo, updateRemoveTodo } from '../actions/actionsAPI';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -21,11 +21,13 @@ const mapDispatchToProps = dispatch => {
         editTempDate: date => dispatch(editTempDate(date)),
         editTempDescription: desc => dispatch(editTempDescription(desc)),
         updateAddToDo: todo => dispatch(updateAddToDo(todo)),
-        updateCompleteTodo: todo => dispatch(updateCompleteTodo(todo))
+        updateCompleteTodo: todo => dispatch(updateCompleteTodo(todo)),
+        updateRemoveTodo: todo => dispatch(updateRemoveTodo(todo))
     }
 }
 
 class Popup extends Component {
+    
     constructor(props) {
         super(props)
 
@@ -39,6 +41,7 @@ class Popup extends Component {
 
 
     render() {
+        console.log(this.props.showPop)
         return(
             <div className="popup">
                 <div className="pop_inner">
@@ -78,6 +81,7 @@ class Popup extends Component {
                                 />
                             </div>
                             <div>
+                                <Button variant="contained" color="secondary" onClick={event => this.props.updateRemoveTodo()}>Delete</Button>
                                 <Button variant="contained" color="primary" onClick={event => this.props.updateAddToDo()}>done</Button>
                                 <div className="completeSection">
                                     <i onClick={event => this.props.updateCompleteTodo()} className="material-icons">done</i>

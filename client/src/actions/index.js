@@ -6,11 +6,10 @@ import { EDIT_TEMP_TITLE } from "../constants/action-types";
 import { EDIT_TEMP_DESC } from "../constants/action-types";
 import { EDIT_TEMP_DATE } from "../constants/action-types";
 import { SET_PROJECT } from "../constants/action-types";
-import { FETCH_BOARD } from "../constants/action-types";
 import { FETCH_BOARD_BEGIN } from "../constants/action-types"
 import { FETCH_BOARD_SUCCESS } from "../constants/action-types";
 import { UPDATE_BOARD } from "../constants/action-types";
-import Axios from "axios";
+import { DELETE_TODO } from '../constants/action-types';
 
 
   export function togglePopUp(payload) {
@@ -79,6 +78,10 @@ import Axios from "axios";
 
   export function fetchBoardSuccess(payload) {
     return({type: FETCH_BOARD_SUCCESS, payload})
+  }
+
+  export function deleteTodo() {
+      return({type: DELETE_TODO})
   }
 
  
