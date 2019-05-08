@@ -4,6 +4,7 @@ import { editTempDate, editTempDescription, editTempTitle, togglePopUp } from '.
 import { updateAddToDo, updateCompleteTodo, updateRemoveTodo } from '../actions/actionsAPI';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import './PopUp.css'
 
 const mapStateToProps = state => {
     return {
