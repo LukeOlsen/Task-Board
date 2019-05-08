@@ -203,7 +203,8 @@ export default function boardReducer(state = Data, action) {
   } else if (action.type === COMPLETE_TODO) {
       let newState = state;
       newState.projects[state.projects.active].data.todo[state.projects[state.projects.active].data.currentEditId].complete = true;
-      return newState;
+      newState.projects[state.projects.active].data.todo.showPop = false;
+      return Object.assign({}, newState);
   } else if (action.type === SET_PROJECT) {
       return Object.assign({}, state, {
         ...state,

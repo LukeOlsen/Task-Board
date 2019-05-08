@@ -83,9 +83,9 @@ class Popup extends Component {
                             <div>
                                 <Button variant="contained" color="secondary" onClick={event => this.props.updateRemoveTodo()}>Delete</Button>
                                 <Button variant="contained" color="primary" onClick={event => this.props.updateAddToDo()}>done</Button>
-                                <div className="completeSection">
-                                    <i onClick={event => this.props.updateCompleteTodo()} className="material-icons">done</i>
-                                </div>
+                                <Button onClick={event => this.props.updateCompleteTodo()} variant="contained" className="completeSection">
+                                    <i className="material-icons">done</i>
+                                </Button>
                             </div>
                         </form>
                     </div>

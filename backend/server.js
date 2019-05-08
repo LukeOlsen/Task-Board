@@ -107,7 +107,7 @@ client.connect(err => {
         if (req.session.passport.user) {
             res.redirect('http://localhost:3000/board/user')
         } else {
-            res.redirect('http://localhost:3000/Landing')
+            res.redirect('http://localhost:3000/')
         }
     })
     
