@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Column from './Column';
 import { connect } from "react-redux";
-import {DragDropContext} from 'react-beautiful-dnd'; 
+import {DragDropContext, Droppable} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
 import {  editProjectTempTitle, editProjectTitle, togglePopUp } from '../actions/index';
 import { updateMoveToDo, updateEditProjectTitle } from '../actions/actionsAPI';
@@ -98,11 +98,22 @@ class Board extends Component {
         <div className="mainContainer">
         {this.props ? 
           <DragDropContext onDragEnd={this.onDragEnd}>
-            {this.props.columnsort.map(columnId => {
-              const column = this.props.columns[columnId];
-              const todos = column.todoId.map(todoId => this.props.todo[todoId]);
-              return <Column key={column.id} column={column} todos={todos} />;
-            })}
+            <Droppable droppableId="all-columns" direction="horizontal" type="column">
+              {provided => (
+                <div
+                  className="columnContainer"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                    {this.props.columnsort.map((columnId, index) => {
+                      const column = this.props.columns[columnId];
+                      const todos = column.todoId.map(todoId => this.props.todo[todoId]);
+                      return <Column key={column.id} column={column} todos={todos} index={index}/>;
+                    })}
+                    {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
           </DragDropContext>
         : 
           <CircularProgress />
