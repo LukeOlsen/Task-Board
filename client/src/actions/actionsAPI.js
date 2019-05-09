@@ -2,6 +2,7 @@ import { fetchBoardBegin, addProject, editProjectTitle, completeToDo, deleteTodo
 import { fetchBoardSuccess } from './index';
 import { addToDo } from './index';
 import { moveToDo } from './index';
+import { updateColumn } from './index';
 import Axios from 'axios';
 
 function sendBoardUpdateToDB(payload) {
@@ -76,6 +77,14 @@ export function updateRemoveTodo() {
     return (dispatch, getState) => {
         dispatch(deleteTodo());
         let tempState = getState();
+        sendBoardUpdateToDB(tempState.boardReducer)
+    }
+}
+
+export function updateMoveColumn(payload) {
+    return (dispatch, getState) => {
+        dispatch(updateColumn(payload))
+        let tempState = getState()
         sendBoardUpdateToDB(tempState.boardReducer)
     }
 }

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
 import {  editProjectTempTitle, editProjectTitle, togglePopUp } from '../actions/index';
-import { updateMoveToDo, updateEditProjectTitle } from '../actions/actionsAPI';
+import { updateMoveToDo, updateEditProjectTitle, updateMoveColumn } from '../actions/actionsAPI';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import '../App.css';
@@ -27,7 +27,8 @@ const mapDispatchToProps = dispatch => {
     togglePop: pop => dispatch(togglePopUp(pop)),
     updateMoveToDo: todo => dispatch(updateMoveToDo(todo)),
     editProjectTempTitle: title => dispatch(editProjectTempTitle(title)),
-    updateEditProjectTitle: title => dispatch(updateEditProjectTitle(title))
+    updateEditProjectTitle: title => dispatch(updateEditProjectTitle(title)),
+    updateMoveColumn: column => dispatch(updateMoveColumn(column))
   }
 }
 
@@ -48,7 +49,7 @@ class Board extends Component {
 
 
   onDragEnd = result => {
-    const {destination, source, draggableId} = result;
+    const {destination, source, draggableId, type} = result;
     if (!destination) {
       return
     } 
@@ -58,11 +59,21 @@ class Board extends Component {
     ) {
       return;
     }
+
+    if (type === 'column') {
+      const newColumnOrder = Array.from(this.props.columnsort);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId)
+      console.log(newColumnOrder)
+      this.props.updateMoveColumn(newColumnOrder)
+    } else {
+
     const begin = this.props.columns[source.droppableId];
     const end = this.props.columns[destination.droppableId];
     let beginToDoIds = begin.todoId;
     let endToDoIds = end.todoId;
     this.props.updateMoveToDo({destination, begin, end, beginToDoIds, endToDoIds, draggableId, source})
+    }
   }
 
   togglePop = () => {

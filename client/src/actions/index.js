@@ -10,6 +10,7 @@ import { FETCH_BOARD_BEGIN } from "../constants/action-types"
 import { FETCH_BOARD_SUCCESS } from "../constants/action-types";
 import { UPDATE_BOARD } from "../constants/action-types";
 import { DELETE_TODO } from '../constants/action-types';
+import { UPDATE_COLUMN } from "../constants/action-types";
 
 
   export function togglePopUp(payload) {
@@ -82,6 +83,11 @@ import { DELETE_TODO } from '../constants/action-types';
 
   export function deleteTodo() {
       return({type: DELETE_TODO})
+  }
+
+  export function updateColumn(payload) {
+      return({type: UPDATE_COLUMN, payload})
+
   }
 
  

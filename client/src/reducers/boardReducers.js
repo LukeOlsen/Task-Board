@@ -1,4 +1,4 @@
-import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE, FETCH_BOARD_BEGIN, FETCH_BOARD_SUCCESS, DELETE_TODO } from "../constants/action-types";
+import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE, FETCH_BOARD_BEGIN, FETCH_BOARD_SUCCESS, DELETE_TODO, UPDATE_COLUMN } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import Data from '../Data';
@@ -314,6 +314,11 @@ export default function boardReducer(state = Data, action) {
        console.log("FINAL DELETE:")
        console.log(newState)
        return Object.assign({}, newState) 
+   } else if (action.type === UPDATE_COLUMN) {
+     let newState = state;
+     newState.projects[newState.projects.active].data.columnsort = action.payload;
+     console.log(newState);
+     return Object.assign({}, newState)
    }
   return state;
 }
