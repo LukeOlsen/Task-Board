@@ -1,8 +1,8 @@
 import { EDIT_CARD, ADD_TODO, EDIT_TEMP_TITLE, EDIT_TEMP_DATE, EDIT_TEMP_DESC, COMPLETE_TODO, SET_PROJECT, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE, FETCH_BOARD_BEGIN, FETCH_BOARD_SUCCESS, DELETE_TODO, UPDATE_COLUMN } from "../constants/action-types";
 import { TOGGLE_POPUP } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
+import { ADD_COLUMN } from "../constants/action-types";
 import Data from '../Data';
-import Axios from 'axios';
 
 
 export default function boardReducer(state = Data, action) {
@@ -319,6 +319,35 @@ export default function boardReducer(state = Data, action) {
      newState.projects[newState.projects.active].data.columnsort = action.payload;
      console.log(newState);
      return Object.assign({}, newState)
+   } else if (action.type === ADD_COLUMN) {
+     let col = 'col-';
+     let currentProject = state.projects.active;
+     let currentCol = state.projects[currentProject].data.columnCount;
+     let newCol = col+currentCol;
+     currentCol = currentCol + 1;
+     let colName = col+currentCol;
+     return Object.assign({}, state, {
+       ...state,
+       projects: {
+         ...state.projects,
+         [state.projects.active]: {
+           ...state.projects[currentProject],
+           data: {
+             ...state.projects[currentProject].data,
+             columns: {
+              ...state.projects[currentProject].data.columns,
+              [colName]: {
+                id: colName,
+                title: 'New Column',
+                todoId: []
+              }
+             },
+             columnCount: currentCol,
+             columnsort: state.projects[currentProject].data.columnsort.push(colName)
+           }
+         }
+       }
+     })
    }
   return state;
 }

@@ -47,24 +47,10 @@ const boardTemplate = {
                          id: 'col-1',
                          title: 'To Do',
                          todoId: ['1']
-                     },
-                     'col-2': {
-                         id: 'col-2',
-                         title: 'In Progress',
-                         todoId: []
-                     },
-                     'col-3': {
-                         id: 'col-3',
-                         title: 'Awaiting Approval',
-                         todoId: []
-                     },
-                     'col-4': {
-                         id: 'col-4',
-                         title: 'Complete',
-                         todoId: []
                      }
                  },
-                 columnsort: ['col-1', 'col-2', 'col-3', 'col-4'],
+                 columnsort: ['col-1'],
+                 columnCount: 1,
                  count: 1,
                  showPop: false,
                  edit: false,

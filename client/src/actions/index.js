@@ -1,4 +1,4 @@
-import { TOGGLE_POPUP, COMPLETE_TODO, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE, SET_GUEST } from "../constants/action-types";
+import { TOGGLE_POPUP, COMPLETE_TODO, ADD_PROJECT, EDIT_PROJ_TITLE, EDIT_PROJ_TEMP_TITLE, SET_GUEST, ADD_COLUMN } from "../constants/action-types";
 import { MOVE_TODO } from "../constants/action-types";
 import { EDIT_CARD } from "../constants/action-types";
 import { ADD_TODO } from "../constants/action-types";
@@ -88,6 +88,10 @@ import { UPDATE_COLUMN } from "../constants/action-types";
   export function updateColumn(payload) {
       return({type: UPDATE_COLUMN, payload})
 
+  }
+
+  export function addColumn() {
+      return({type: ADD_COLUMN})
   }
 
  

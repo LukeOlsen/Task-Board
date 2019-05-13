@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'; 
 import Button from '@material-ui/core/Button';
 import {  editProjectTempTitle, editProjectTitle, togglePopUp } from '../actions/index';
-import { updateMoveToDo, updateEditProjectTitle, updateMoveColumn } from '../actions/actionsAPI';
+import { updateMoveToDo, updateEditProjectTitle, updateMoveColumn, updateAddColumn } from '../actions/actionsAPI';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import '../App.css';
@@ -28,7 +28,8 @@ const mapDispatchToProps = dispatch => {
     updateMoveToDo: todo => dispatch(updateMoveToDo(todo)),
     editProjectTempTitle: title => dispatch(editProjectTempTitle(title)),
     updateEditProjectTitle: title => dispatch(updateEditProjectTitle(title)),
-    updateMoveColumn: column => dispatch(updateMoveColumn(column))
+    updateMoveColumn: column => dispatch(updateMoveColumn(column)),
+    updateAddColumn: column => dispatch(updateAddColumn(column))
   }
 }
 
@@ -105,6 +106,7 @@ class Board extends Component {
           <h1 onClick={this.toggleTempTitle}>{this.props.projects[this.props.projects.active].title}</h1>
           }
         <Button variant="contained" color="primary" onClick={this.togglePop}>New Task</Button>
+        <Button variant="contained" color="primary" onClick={() => this.props.updateAddColumn()}>Add Column</Button>
         </div>
         <div className="mainContainer">
         {this.props ? 

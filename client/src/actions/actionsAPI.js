@@ -1,4 +1,4 @@
-import { fetchBoardBegin, addProject, editProjectTitle, completeToDo, deleteTodo } from './index';
+import { fetchBoardBegin, addProject, editProjectTitle, completeToDo, deleteTodo, addColumn } from './index';
 import { fetchBoardSuccess } from './index';
 import { addToDo } from './index';
 import { moveToDo } from './index';
@@ -85,6 +85,15 @@ export function updateMoveColumn(payload) {
     return (dispatch, getState) => {
         dispatch(updateColumn(payload))
         let tempState = getState()
+        sendBoardUpdateToDB(tempState.boardReducer)
+    }
+}
+
+export function updateAddColumn() {
+    return (dispatch, getState) => {
+        dispatch(addColumn())
+        let tempState = getState()
+        console.log(tempState)
         sendBoardUpdateToDB(tempState.boardReducer)
     }
 }

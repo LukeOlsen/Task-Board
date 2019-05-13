@@ -16,4 +16,5 @@ export const SET_GUEST = "SET_GUEST";
 export const FETCH_BOARD_BEGIN = "FETCH_BOARD_BEGIN";
 export const FETCH_BOARD_SUCCESS = "FETCH_BOARD_SUCCESS";
 export const DELETE_TODO = "DELETE_TODO";
-export const UPDATE_COLUMN = "UPDATE_COLUMN"
+export const UPDATE_COLUMN = "UPDATE_COLUMN";
+export const ADD_COLUMN = "ADD_COLUMN";
