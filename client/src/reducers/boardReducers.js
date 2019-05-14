@@ -326,6 +326,8 @@ export default function boardReducer(state = Data, action) {
      let newCol = col+currentCol;
      currentCol = currentCol + 1;
      let colName = col+currentCol;
+     let newColArray = state.projects[currentProject].data.columnsort;
+     newColArray.push(colName)
      return Object.assign({}, state, {
        ...state,
        projects: {
@@ -343,7 +345,7 @@ export default function boardReducer(state = Data, action) {
               }
              },
              columnCount: currentCol,
-             columnsort: state.projects[currentProject].data.columnsort.push(colName)
+             columnsort: newColArray
            }
          }
        }
