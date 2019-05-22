@@ -46,7 +46,17 @@ class Popup extends Component {
         return(
             <div className="popup">
                 <div className="pop_inner">
-                    <div>
+                    <div className="upperPop">
+                        <form className="">
+                            <div className="textArea">
+                                <TextField
+                                    type="date"
+                                    className="tempDate"
+                                    value={this.props.tempDate}
+                                    onChange={event => this.props.editTempDate(event.target.value)}
+                                />
+                            </div>
+                        </form>
                         <div className="popTop">
                             <i onClick={this.togglePop} className="material-icons clear">clear</i>
                         </div>
@@ -63,14 +73,6 @@ class Popup extends Component {
                             </div>
                             <div className="textArea">
                                 <TextField
-                                    type="date"
-                                    className="tempDate"
-                                    value={this.props.tempDate}
-                                    onChange={event => this.props.editTempDate(event.target.value)}
-                                />
-                            </div>
-                            <div className="textArea">
-                                <TextField
                                     type="text"
                                     className="tempDescription"
                                     label="Notes"
@@ -81,14 +83,14 @@ class Popup extends Component {
                                     onChange={event => this.props.editTempDescription(event.target.value)}
                                 />
                             </div>
-                            <div>
-                                <Button variant="contained" color="secondary" onClick={event => this.props.updateRemoveTodo()}>Delete</Button>
-                                <Button variant="contained" color="primary" onClick={event => this.props.updateAddToDo()}>done</Button>
-                                <Button onClick={event => this.props.updateCompleteTodo()} variant="contained" className="completeSection">
-                                    <i className="material-icons">done</i>
-                                </Button>
-                            </div>
                         </form>
+                        <div className="popButtons">
+                            <Button variant="contained" color="secondary" onClick={event => this.props.updateRemoveTodo()}>Delete</Button>
+                            <Button variant="contained" color="primary" onClick={event => this.props.updateAddToDo()}>done</Button>
+                            <Button onClick={event => this.props.updateCompleteTodo()} variant="contained" className="completeSection">
+                                <i className="material-icons">done</i>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>

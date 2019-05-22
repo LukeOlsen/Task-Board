@@ -24,7 +24,6 @@ const Sidebar = ({projects, user, setActiveProject, updateAddProject}) => {
     return (
         <div className="sidebar">
             <h4>PROJECTS</h4>
-            <a href="http://localhost:4000/auth/google"> Sign In With Google</a>
             <Button variant="contained" color="primary" onClick={event => updateAddProject()}>New Project</Button>
             {Object.keys(projects).map(d => {
                 return (

@@ -51,3 +51,15 @@
 .tempDescription {
     width: 80%;
 }
+
+.upperPop {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popButtons {
+    position: relative;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
